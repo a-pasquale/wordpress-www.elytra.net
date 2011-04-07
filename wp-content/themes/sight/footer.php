@@ -7,7 +7,7 @@
             <!-- /Container -->
 
             <div class="footer">
-                <p class="copyright">&copy; 2010 <a href="<?php bloginfo('home'); ?>"><?php bloginfo('name'); ?></a>. All Rights Reserved.<br /><span>Powered by <a
+                <p class="copyright">&copy; 2011 <a href="<?php bloginfo('home'); ?>"><?php bloginfo('name'); ?></a>. All Rights Reserved.<br /><span>Powered by <a
                         href="http://wordpress.org">WordPress</a>.</span></p>
                 <p class="credits"></p>
             </div>
