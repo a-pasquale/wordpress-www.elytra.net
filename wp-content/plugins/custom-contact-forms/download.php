@@ -5,7 +5,7 @@
 	Plugin URL: http://www.taylorlovett.com/wordpress-plugins
 */
 error_reporting(0);
-if (!empty($_GET['location']) && preg_match('/^export\/ccf[^\/^\.]+\.sql$/i', $_GET['location'])) {
+if (!empty($_GET['location']) && preg_match('/^export\/ccf[^\/^\.]+\.(sql|csv)$/i', $_GET['location'])) {
 	header('Content-Description: File Transfer');
 	header('Content-Type: application/octet-stream');
 	header('Content-Disposition: attachment; filename=' . basename($_GET['location']));

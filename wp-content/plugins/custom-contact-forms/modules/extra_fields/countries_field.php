@@ -17,9 +17,9 @@ if (!class_exists('ccf_countries_field')) {
 				$tooltip_class = '';
 			} else {
 				$instructions_attr = ' title="'.$field_instructions.'" ';
-				$tooltip_class = 'ccf_tooltip_field';
+				$tooltip_class = 'ccf-tooltip-field';
 			}
-			$this->field_code .= '<select name="allCountries" class="'.tooltip_class.' ' . $class_attr . '" ' . $id_attr . $instructions_attr . '>' . "\n";
+			$this->field_code .= '<select name="allCountries" class="'.$tooltip_class.' ' . $class_attr . '" ' . $id_attr . $instructions_attr . '>' . "\n";
 			$countries = array('Afghanistan', 'Albania', 'Algeria', 'American Samoa', 'Andorra', 'Angola', 'Anguilla', 'Antarctica', 'Antigua And Barbuda', 'Argentina', 'Armenia', 'Aruba', 'Australia', 'Austria', 'Azerbaijan', 'Bahamas', 'Bahrain', 'Bangladesh', 'Barbados', 'Belarus', 'Belgium', 'Belize', 'Benin', 'Bermuda', 'Bhutan', 'Bolivia', 'Bosnia And Herzegowina', 'Botswana', 
 			'Bouvet Island', 'Brazil', 'British Indian Ocean Territory', 'Brunei Darussalam', 'Bulgaria', 'Burkina Faso', 'Burundi', 'Cambodia', 'Cameroon', 'Canada', 'Cape Verde', 'Cayman Islands', 'Central African Republic', 'Chad', 'Chile', 'China', 'Christmas Island', 'Cocos (Keeling) Islands', 'Colombia', 'Comoros', 'Congo', 'Cook Islands', 'Costa Rica', "Cote D'Ivoire", 
 			'Croatia (Hrvatska)', 'Cuba', 'Cyprus', 'Czech Republic', 'Denmark', 'Djibouti', 'Dominica', 'Dominican Republic', 'East Timor', 'Ecuador', 'Egypt', 'El Salvador', 'Equatorial Guinea', 'Eritrea', 'Estonia', 'Ethiopia', 'Falkland Islands (Malvinas)', 'Faroe Islands', 'Fiji', 'Finland', 'France', 'French Guiana', 'French Polynesia', 'French Southern Territories', 'Gabon', 

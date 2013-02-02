@@ -3,23 +3,30 @@ Contributors: Taylor Lovett
 Donate link: http://www.taylorlovett.com
 Tags: contact form, web form, custom contact form, custom forms, captcha form, contact fields, form mailers
 Requires at least: 2.8.1
-Tested up to: 3.1
-Stable tag: 4.5.2.3
+Tested up to: 3.4.1
+Stable tag: 5.1.0.2
 
-Gauranteed to be the most customizable and intuitive contact form plugin for Wordpress.
+A customizable and intuitive contact form plugin for Wordpress.
 
 == Description ==
 
-Guaranteed to be 1000X more customizable and intuitive than Fast Secure Contact Forms or Contact Form 7. Customize every aspect of your forms without any knowledge of CSS: borders, padding, sizes, colors. Ton's of great features. Required fields, captchas, tooltip popovers, unlimited fields/forms/form styles, use a custom thank you page or built-in popover with a custom success message set for each form.
+__Attention:__ Custom Contact Forms really needs support from developers. We need code contribution to make this plugin better. Please fork the plugin on [Github](https://github.com/tlovett1/custom-contact-forms) and create push requests!
+
+Customize every aspect of your forms without any knowledge of CSS: borders, padding, sizes, colors. Ton's of great features. Required fields, captchas, tooltip popovers, unlimited fields/forms/form styles, use a custom thank you page or built-in popover with a custom success message set for each form.
 
 Special Features:
 ------------------
-Custom Contact Forms 4.5.0 will revolutionize the idea of a Wordpress plugin.
 
-*	__NEW__ Saved Form Submission dashboard widget!
-*	__NEW__ - All form submissions saved and displayed in admin panel as well as emailed to you
-*	__NEW__ - Instantly attach a dropdown with all the countries or all the US States - new fixed fields
+*	__NEW__ Rearrange fields with a drag-and-drop interface
+*	__NEW__ Export form submissions to .CSV
+*	__NEW__ File Upload Fields
+*	__NEW__ Redesigned admin panel
+*	__NEW__ - Option to only include JQuery and CSS and pages that actually use your forms
+*	__NEW__ - Date field that when click displays a stylish calender popover
+*	Saved Form Submission dashboard widget!
+*	Instantly attach a dropdown with all the countries or all the US States - new fixed fields
 *	Import and export forms/fields/styles/etc. with ease!
+*	All form submissions saved and displayed in admin panel as well as emailed to you
 *	This plugin can now be translated in to different languages.
 *	Error messages can be customized for each field
 *	Choose between XHTML or HTML. All code is clean and valid!
@@ -28,7 +35,7 @@ Custom Contact Forms 4.5.0 will revolutionize the idea of a Wordpress plugin.
 *	Required Fields
 *	__NEW__ - a dashboard widget that displays the latest form submissions
 *	Custom Contact Forms now uses PHPMailer and thus supports STMP and SSL
-*	__NEW__ Have your contact forms send mail to multiple email addresses
+*	Have your contact forms send mail to multiple email addresses
 *	Create text fields, textareas, checkboxs, and dropdown fields!
 *	Custom HTML Forms Feature - if you are a web developer you can write your own form html and __use this plugin simply to process your form requests__. Comes with a few useful features.
 *	__Displays forms in theme files__ as well as pages and posts.
@@ -58,8 +65,7 @@ Custom Contact Forms 4.5.0 will revolutionize the idea of a Wordpress plugin.
 
 Restrictions/Requirements:
 -------------------------
-*	Works with Wordpress 2.8.1+, WPMU, and BuddyPress (Wordpress 3.0+ is highly recommended)
-*	PHP 5
+*	Works with Wordpress 3.0+
 *	PHP register_globals and safe_mode should be set to "Off" (this is done in your php.ini file)
 *	Your theme must call wp_head() and wp_footer()
 
@@ -93,7 +99,10 @@ http://www.taylorlovett.com/wordpress-plugins
 * 	If that doesn't fix the problem, try deleting and reinstalling the plugin
 *	If that doesn't work, you should file a bug report.
 
-= All my fields and field options got detached. What do I do? Will this happen again?
+= When I try to do something in the admin panel, all I get is a new page with a -1. =
+*	This is a bug we are currently trying to fix that usually happens in Internet Explorer 8. If you are having this problem, please try using Firefox.
+
+= All my fields and field options got detached. What do I do? Will this happen again? =
 *	Custom Contact Forms changed the way fields and field options are attached in version 4.5. It won't happen again. Just reattach everything and continue using the plugin.
 
 = I don't know where to start. This is really confusing. =
@@ -102,6 +111,10 @@ http://www.taylorlovett.com/wordpress-plugins
 
 = I can't figure out how to insert a form into a page or post. Help! =
 *	Find the form in the Form Manager, a snippet of code will be displaed that looks like [customcontact form=1]. Replace 1 with the ID for the specific form you want to use and insert the snippet into a page or post. You're done!
+
+= How can I include jQuery and CSS files only on pages that display a form? =
+*	First go to general settings, set "Restrict Frontend JS and CSS to Form Pages Only" to "Yes".
+*	Now go to the Form Manager, within each of your forms there is a field called "Form Pages". Add the post or page id's where you plan to use that form to the "Form Pages" field.
 
 = I'm not receiving any emails =
 *	Check that the "Email Form Submissions" option is set to yes in General Settings.
@@ -130,6 +143,81 @@ We are planning to add popover forms and file attachments soon.
 Visit http://www.taylorlovett.com/wordpress-plugins for screenshots. Right now all the screenshots are from Version 1, thus are quite out-dated. Install the plugin to see what it looks like. You won't regret it. I promise!
 
 == Changelog ==
+
+= 5.0.0.1 =
+*   custom-contact-forms-admin.php - Small UI updates
+*   css/custom-contact-forms-admin.css - New admin styles
+
+= 5.0.0.1 =
+*	ishuman fixed field bug fixed
+*	attach field bug fixed
+
+= 5.0.0.0 =
+*	Admin user interface improved 1000% with drag-and-drop fields as well as save/delete buttons.
+*	Import bug fixed
+
+= 4.8.0.0 =
+*	js/jquery.tools.min.js - Updated to fix firefox tooltip bug
+
+= 4.7.0.5 =
+*	custom-contact-forms-front.php - Notice bugs fixed
+*	custom-contact-forms.php - Notice bugs fixed
+*	modules/db/custom-contact-forms-activate-db.php - Notice bugs fixed
+*	modules/db/custom-contact-forms-db.php - Notice bugs fixed
+*	modules/extra_fields/countries_field.php - Notice bugs fixed
+*	modules/extra_fields/states_field.php - Notice bugs fixed
+*	custom-contact-forms-admin.php - Notice bugs fixed, new language phrases added
+
+= 4.7.0.4 =
+*	custom-contact-forms-front.php - Language stuff changed
+
+= 4.7.0.3 =
+*	js/jquery.tools.js - Updated to not include jQuery
+*	custom-contact-forms-front.php - jQuery bug fixed
+
+
+= 4.7.0.1 =
+*	custom-contact-forms-front.php - Look and feel changed
+*	css/custom-contact-forms.css - Look and feel changed
+*	js/custom-contact-forms-admin-ajax.js - IE detach field/field option bug fixed
+
+
+= 4.7.0.0 =
+*	All files have been changed!
+
+= 4.6.0.1 =
+*	custom-contact-forms-admin.php - -1 bug fixed in IE
+*	js/jquery.form.js - Updated jquery forms plugin fixes huge IE bug
+
+= 4.6.0.0 =
+*	custom-contact-forms.php - Dependencies included differently, new general setting options
+*	custom-contact-forms-admin.php - New field type (Date), guidelines inserted in to all pages, new general settings
+*	modules/usage_popover/custom-contact-forms-usage-popover.php - New field type added
+*	custom-contact-forms.php - Dependencies included differently, new field type added, JQuery files included differently
+*	js/custom-contact-forms-datepicker.js - New file
+*	js/jquery.ui.datepicker.js - New file
+
+
+
+= 4.5.3.2 =
+*	modules/widgets/custom-contact-forms-dashboard.php - Bugs fixed
+*	custom-contact-forms-admin.php - Quick start guide added to general settings and form submissions.
+*	custom-contact-forms.php - Dashboard widget security bug fixed.
+*	modules/usage_popover/custom-contact-forms-quick-start-popover.php - Language changes made
+*	modules/db/custom-contact-forms-db.php - Roles bug fixed
+
+= 4.5.3.1 =
+*	modules/widgets/custom-contact-forms-dashboard.php - Array shift bug fix
+
+= 4.5.3.0 =
+*	custom-contact-forms-admin.php - Dashboard widget security bug fixed. Now you can limit which users can see the dashboard widget. Also a quick start guide has been added.
+*	custom-contact-forms.php - Dashboard widget security bug fixed.
+*	modules/widgets/custom-contact-forms-dashboard.php - Dashboard widget security bug fixed. Now you can limit which users can see the dashboard widget.
+*	modules/usage_popover/custom-contact-forms-usage-popover.php - Minor display changes made
+*	modules/usage_popover/custom-contact-forms-quick-start-popover.php - Minor display changes made
+*	js/custom-contact-forms-admin.js - Quick start guide added
+*	css/custom-contact-forms-admin.css - Quick start guide added
+
 
 = 4.5.2.2 =
 *	custom-contact-forms.php - JQuery plugin conflict fixed

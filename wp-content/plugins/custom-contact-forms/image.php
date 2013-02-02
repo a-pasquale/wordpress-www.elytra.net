@@ -12,7 +12,7 @@ $image = new CustomContactFormsImages();
 $str = rand(10000, 99999);
 if (!session_id())
 	session_start();
-$captcha_name = 'captcha_' . $_GET['fid'];
+$captcha_name = 'ccf_captcha_' . $_GET['fid'];
 if (!$_SESSION[$captcha_name])
 	$_SESSION[$captcha_name] = $str;
 else

@@ -24,13 +24,15 @@ if (!class_exists('CustomContactFormsDB')) {
 			return $wpdb->insert_id;
 		}
 		
-		function insertField($field, $fixed = false) {
+		function insertField($field, $fixed = false, $skip_encode = array('field_allowed_file_extensions')) {
 			global $wpdb;
 			if (empty($field) or empty($field['field_slug']) or (array_key_exists($this->formatSlug($field['field_slug']), $GLOBALS['ccf_fixed_fields']) && !$fixed) or $this->fieldSlugExists($this->formatSlug($field['field_slug'])))
 				return false;
 			$field['field_slug'] = $this->formatSlug($field['field_slug']);
+			if (isset($field['field_allowed_file_extensions']))
+				$field['field_allowed_file_extensions'] = $this->formatFileExtensions($field['field_allowed_file_extensions']);
 			foreach ($field as $key => $value)
-				if (!is_array($value))
+				if (!is_array($value) && !in_array($key, $skip_encode))
 					$field[$key] = ccf_utils::encodeOption($value);
 			$wpdb->insert(CCF_FIELDS_TABLE, $field);
 			return $wpdb->insert_id;
@@ -84,7 +86,8 @@ if (!class_exists('CustomContactFormsDB')) {
 				$form['form_slug'] = $this->formatSlug($form['form_slug']);
 			}
 			if (!empty($form['form_access_update'])) {
-				$form['form_access'] = serialize($form['form_access']);
+				if (isset($form['form_access'])) $form['form_access'] = serialize($form['form_access']);
+				else $form['form_access'] = serialize(array());
 				unset($form['form_access_update']);
 			} elseif (!empty($form['form_access'])) unset($form['form_access']);
 			
@@ -97,7 +100,7 @@ if (!class_exists('CustomContactFormsDB')) {
 			return true;
 		}
 		
-		function updateField($field, $fid, $skip_encode = array('field_options')) {
+		function updateField($field, $fid, $skip_encode = array('field_options', 'field_allowed_file_extensions')) {
 			global $wpdb;
 			if (!empty($field['field_slug'])) {
 				$test = $this->selectField('', $this->formatSlug($field['field_slug']));
@@ -106,6 +109,8 @@ if (!class_exists('CustomContactFormsDB')) {
 				$field['field_slug'] = $this->formatSlug($field['field_slug']);
 			} if (isset($field['field_options']))
 				$field['field_options'] = serialize(array_unique($field['field_options']));
+			if (isset($field['field_allowed_file_extensions']))
+				$field['field_allowed_file_extensions'] = $this->formatFileExtensions($field['field_allowed_file_extensions']);
 			foreach ($field as $key => $value)
 				if (!in_array($key, $skip_encode))
 					$field[$key] = ccf_utils::encodeOption($value);
@@ -208,9 +213,10 @@ if (!class_exists('CustomContactFormsDB')) {
 			return $wpdb->get_results("SELECT * FROM " . CCF_STYLES_TABLE . " ORDER BY style_slug ASC");	
 		}
 		
-		function selectAllUserData() {
+		function selectAllUserData($form_id = NULL) {
 			global $wpdb;
-			return $wpdb->get_results("SELECT * FROM " . CCF_USER_DATA_TABLE . " ORDER BY data_time DESC");	
+			$where = ($form_id != NULL) ? " WHERE data_formid = '$form_id' " : '';
+			return $wpdb->get_results("SELECT * FROM " . CCF_USER_DATA_TABLE . " $where ORDER BY data_time DESC");	
 		}
 		
 		function selectForm($fid, $form_slug = '') {
@@ -268,6 +274,11 @@ if (!class_exists('CustomContactFormsDB')) {
 				return true;
 			}
 			return false;
+		}
+		
+		function unserializeFormPageIds($form) {
+			$pids = str_replace(' ', '', $form->form_pages);
+			return explode(',', $pids);
 		}
 		
 		function getAttachedFieldsArray($form_id) {
@@ -352,6 +363,16 @@ if (!class_exists('CustomContactFormsDB')) {
 			return str_replace(' ', '_', $slug);	
 		}
 		
+		function formatFileExtensions($str) {
+			$str = str_replace('.', '', $str);
+			$str = str_replace(' ', '', $str);
+			$arr = explode(',', $str);
+			foreach ($arr as $k => $v) {
+				if (empty($v)) unset($arr[$k]);
+			}
+			return serialize($arr);
+		}
+		
 		function fieldSlugExists($slug) {
 			$test = $this->selectField('', $slug);
 			return (!empty($test));
@@ -404,7 +425,8 @@ if (!class_exists('CustomContactFormsDB')) {
 		}
 		
 		function getFormAccessArray($form_access_string) {
-			$arr = unserialize(strtolower($form_access_string));
+			$arr = unserialize($form_access_string);
+			if (!empty($arr)) $arr = array_map('strtolower', $arr);
 			if ($arr == false || empty($form_access_string)) $arr = array();
 			return $arr;
 		}

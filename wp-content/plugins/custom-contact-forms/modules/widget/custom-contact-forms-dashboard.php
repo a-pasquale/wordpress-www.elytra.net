@@ -7,14 +7,35 @@
 if (!class_exists('CustomContactFormsDashboard')) {
 	class CustomContactFormsDashboard extends CustomContactFormsAdmin {
 		function install() {
-			wp_add_dashboard_widget('custom-contact-forms-dashboard', __('Custom Contact Forms - Saved Form Submissions', 'custom-contact-forms'), array(&$this, 'display'));	
+			if (is_user_logged_in() && $this->userCanViewWidget()) {
+				wp_add_dashboard_widget('custom-contact-forms-dashboard', __('Custom Contact Forms - Saved Form Submissions', 'custom-contact-forms'), array(&$this, 'display'));	
+			}
 		}
 		
 		function isDashboardPage() {
 			return (is_admin() && preg_match('/((index\.php)|(wp-admin\/?))$/', $_SERVER['REQUEST_URI']));
 		}
 		
+		function userCanViewWidget() {
+			global $current_user;
+			if (!isset($current_user) || empty($current_user)) return false;
+			$perms = parent::getAdminOptions();
+			$widget_perms = $perms['dashboard_access'];
+			$user_roles = $current_user->roles;
+			$user_role = @array_shift($user_roles);
+			$user_role = @ucwords($user_role);
+			if ($widget_perms == 2) {
+				if ($user_role != "Administrator") return false;
+			} else if ($widget_perms == 1) {
+				if ($user_role == "Subscriber" || !in_array($user_role, parent::getRolesArray())) return false;
+			} else {
+				/* all roles are allowed so just return true */
+			}
+			return true;
+		}
+		
 		function insertDashboardStyles() {
+			if (!$this->userCanViewWidget()) return;
 			wp_register_style('ccf-dashboard', plugins_url() . '/custom-contact-forms/css/custom-contact-forms-dashboard.css');
             wp_register_style('ccf-jquery-ui', plugins_url() . '/custom-contact-forms/css/jquery-ui.css');
             wp_enqueue_style('ccf-jquery-ui');
@@ -22,6 +43,7 @@ if (!class_exists('CustomContactFormsDashboard')) {
 		}
 		
 		function insertDashboardScripts() {
+			if (!$this->userCanViewWidget()) return;
 			wp_enqueue_script('jquery');
 			wp_enqueue_script('jquery-ui-core');
 			wp_enqueue_script('jquery-ui-widget', plugins_url() . '/custom-contact-forms/js/jquery.ui.widget.js');
@@ -45,6 +67,13 @@ if (!class_exists('CustomContactFormsDashboard')) {
 			  </thead>
 			  <tbody>
 			<?php
+			if (empty($user_data_array)) {
+				?>
+               <tr>
+               	 <td colspan="4"><?php _e('No submissions to display.', 'custom-contact-forms'); ?></td> 
+               </tr>
+                <?php
+			}
 			$i = 0;
 			foreach ($user_data_array as $data_object) {
 				if ($i > 3) break;
@@ -90,14 +119,14 @@ if (!class_exists('CustomContactFormsDashboard')) {
 								?>
 								<li>
 								  <div><?php echo $item_key; ?></div>
-								  <p><?php echo $item_value; ?></p>
+								  <p><?php echo $data->parseUserData($item_value); ?></p>
 								</li>
 								<?php
 								}
 								?>
 							</ul>
 							<div class="separate"></div>
-							<a href="admin.php?page=ccf-saved-form-submissions"><?php _e('View All Submissions', 'custom-contact-forms'); ?></a>
+                            <a class="button" href="admin.php?page=ccf-saved-form-submissions"><?php _e('View All Submissions', 'custom-contact-forms'); ?></a>
 						</div>
 					</td>
 				</tr>

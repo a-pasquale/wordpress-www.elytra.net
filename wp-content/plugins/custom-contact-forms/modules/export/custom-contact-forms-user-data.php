@@ -37,7 +37,12 @@ if (!class_exists('CustomContactFormsUserData')) {
 			$encoded_data = '';
 			foreach ($data_array as $key => $value) {
 				$key = ccf_utils::encodeOption($key);
-				$value = ccf_utils::encodeOption($value);
+				if (!is_array($value))
+					$value = ccf_utils::encodeOption($value);
+				else {
+					$value = ccf_utils::encodeOptionArray($value);
+					$value = implode(', ', $value);
+				}
 				$encoded_data .= 's:'.strlen($key).':"'.$key.'";';
 				$encoded_data .= 's:'.strlen($value).':"'.$value.'";';
 			} 
@@ -66,6 +71,14 @@ if (!class_exists('CustomContactFormsUserData')) {
 		
 		function strstrb($h, $n){
 			return array_shift(explode($n, $h, 2));
+		}
+		
+		function parseUserData($data, $for_csv = false) {
+			if (preg_match('/\[file[ ]*link=("|&quot;).*?("|&quot;)\].*?\[\/[ ]*file\]/is', $data)) {
+				if ($for_csv) $data = preg_replace('/\[file[ ]*link=("|&quot;)(.*?)("|&quot;)\](.*?)\[\/[ ]*file\]/is', '$2', $data);
+				else $data = preg_replace('/\[file[ ]*link=("|&quot;)(.*?)("|&quot;)\](.*?)\[\/[ ]*file\]/is', '<a href="$2" title="'.__('View File Upload', 'custom-contact-forms').'">$4</a>', $data);
+			}
+			return $data;
 		}
 		
 		/* Getters and Setters */

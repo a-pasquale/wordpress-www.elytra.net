@@ -84,7 +84,7 @@ if (!class_exists('CustomContactFormsActivateDB')) {
 				$sql2 = "CREATE TABLE `".CCF_FIELDS_TABLE."` (
 						`id` INT( 11 ) NOT NULL AUTO_INCREMENT ,
 						`field_slug` VARCHAR( 50 ) NOT NULL ,
-						`field_label` VARCHAR( 100 ) NOT NULL ,
+						`field_label` VARCHAR( 200 ) NOT NULL ,
 						`field_type` VARCHAR( 25 ) NOT NULL ,
 						`field_value` TEXT NOT NULL ,
 						`field_maxlength` INT ( 5 )  NOT NULL DEFAULT '0',
@@ -157,6 +157,12 @@ if (!class_exists('CustomContactFormsActivateDB')) {
 				$wpdb->query("ALTER TABLE `" . CCF_STYLES_TABLE . "` ADD `dropdown_width` VARCHAR( 20 ) NOT NULL DEFAULT 'auto'");
 			if (!$this->columnExists('success_popover_fontsize', CCF_STYLES_TABLE))
 				$wpdb->query("ALTER TABLE `" . CCF_STYLES_TABLE . "` ADD `success_popover_fontsize` VARCHAR( 20 ) NOT NULL DEFAULT '12px'");
+			
+			if (!$this->columnExists('submit_background', CCF_STYLES_TABLE))
+				$wpdb->query("ALTER TABLE `" . CCF_STYLES_TABLE . "` ADD `submit_background` VARCHAR ( 200 ) NOT NULL");
+            if (!$this->columnExists('submit_background_repeat', CCF_STYLES_TABLE))
+				$wpdb->query("ALTER TABLE `" . CCF_STYLES_TABLE . "` ADD `submit_background_repeat` VARCHAR ( 25 ) NOT NULL");
+			
 			if (!$this->columnExists('success_popover_title_fontsize', CCF_STYLES_TABLE))
 				$wpdb->query("ALTER TABLE `" . CCF_STYLES_TABLE . "` ADD `success_popover_title_fontsize` VARCHAR( 20 ) NOT NULL DEFAULT '1.3em'");
 			if (!$this->columnExists('success_popover_height', CCF_STYLES_TABLE))
@@ -185,6 +191,7 @@ if (!class_exists('CustomContactFormsActivateDB')) {
 				$wpdb->query("ALTER TABLE `" . CCF_FIELDS_TABLE . "` ADD `field_class` VARCHAR( 50 ) NOT NULL");
 			if (!$this->columnExists('field_error', CCF_FIELDS_TABLE))
 				$wpdb->query("ALTER TABLE `" . CCF_FIELDS_TABLE . "` ADD `field_error` VARCHAR( 300 ) NOT NULL");
+			
 			if (!$this->columnExists('form_access', CCF_FORMS_TABLE)) {
 				$wpdb->query("ALTER TABLE `" . CCF_FORMS_TABLE . "` ADD `form_access` TEXT NOT NULL");
 				// This makes all forms accessible when upgrading from CCF versions older than 4.5.0
@@ -196,6 +203,13 @@ if (!class_exists('CustomContactFormsActivateDB')) {
 				$wpdb->query("ALTER TABLE `" . CCF_FORMS_TABLE . "` ADD `form_email_name` VARCHAR(100) NOT NULL");
 			if (!$this->columnExists('option_dead', CCF_FIELD_OPTIONS_TABLE))
 				$wpdb->query("ALTER TABLE `" . CCF_FIELD_OPTIONS_TABLE . "` ADD `option_dead` INT( 1 ) NOT NULL DEFAULT '0'");
+			if (!$this->columnExists('form_pages', CCF_FORMS_TABLE))
+				$wpdb->query("ALTER TABLE `" . CCF_FORMS_TABLE . "` ADD `form_pages` VARCHAR(400) NOT NULL");
+			if (!$this->columnExists('field_max_upload_size', CCF_FIELDS_TABLE))
+				$wpdb->query("ALTER TABLE `" . CCF_FIELDS_TABLE . "` ADD `field_max_upload_size` INT( 11 ) NOT NULL");
+			if (!$this->columnExists('field_allowed_file_extensions', CCF_FIELDS_TABLE))
+				$wpdb->query("ALTER TABLE `" . CCF_FIELDS_TABLE . "` ADD `field_allowed_file_extensions` TEXT NOT NULL");
+				
 			$wpdb->query("ALTER TABLE `" . CCF_FORMS_TABLE . "` CHANGE `form_email` `form_email` TEXT NOT NULL");
 			$wpdb->query("ALTER TABLE `" . CCF_FORMS_TABLE . "` CHANGE `form_fields` `form_fields` TEXT NOT NULL");
 			$wpdb->query("ALTER TABLE `" . CCF_FIELDS_TABLE . "` CHANGE `field_label` `field_label` TEXT NOT NULL");
@@ -212,16 +226,19 @@ if (!class_exists('CustomContactFormsActivateDB')) {
 		}
 		
 		function insertFixedFields() {
-			$captcha = array('field_slug' => 'captcha', 'field_label' => __('Type the numbers.', 'custom-contact-forms'), 'field_type' => 'Text', 'field_value' => '', 'field_maxlength' => '100', 'user_field' => 0, 'field_instructions' => 'Type the numbers displayed in the image above.');
-			$ishuman = array('field_slug' => 'ishuman', 'field_label' => __('Check if you are human.', 'custom-contact-forms'), 'field_type' => 'Checkbox', 'field_value' => '1', 'field_maxlength' => '0', 'user_field' => 0, 'field_instructions' => 'This helps us prevent spam.');
-			$fixedEmail = array('field_slug' => 'fixedEmail', 'field_required' => 1, 'field_label' => __('Your Email', 'custom-contact-forms'), 'field_type' => 'Text', 'field_value' => '', 'field_maxlength' => '100', 'user_field' => 0, 'field_instructions' => 'Please enter your email address.');
-			$fixedWebsite = array('field_slug' => 'fixedWebsite', 'field_required' => 1, 'field_label' => __('Your Website', 'custom-contact-forms'), 'field_type' => 'Text', 'field_value' => '', 'field_maxlength' => '200', 'user_field' => 0, 'field_instructions' => 'Please enter your website.');
-			$emailSubject = array('field_slug' => 'emailSubject', 'field_required' => 1, 'field_label' => __('Email Subject', 'custom-contact-forms'), 'field_type' => 'Text', 'field_value' => '', 'field_maxlength' => '200', 'user_field' => 0, 'field_instructions' => 'Please enter a subject for the email.');
+			$captcha = array('field_slug' => 'captcha', 'field_label' => __('Type the numbers.', 'custom-contact-forms'), 'field_type' => 'Text', 'field_value' => '', 'field_maxlength' => '100', 'user_field' => 0, 'field_instructions' => __('Type the numbers displayed in the image above.', 'custom-contact-forms'));
+			$recaptcha = array('field_slug' => 'recaptcha', 'field_label' => '', 'field_type' => 'Text', 'field_value' => '', 'field_maxlength' => '100', 'user_field' => 0, 'field_instructions' => __('Type the numbers displayed in the image above.', 'custom-contact-forms'));
+			$ishuman = array('field_slug' => 'ishuman', 'field_label' => __('Check if you are human.', 'custom-contact-forms'), 'field_type' => 'Checkbox', 'field_value' => '1', 'field_maxlength' => '0', 'user_field' => 0, 'field_instructions' => __('This helps us prevent spam.', 'custom-contact-forms'));
+			$fixedEmail = array('field_slug' => 'fixedEmail', 'field_required' => 1, 'field_label' => __('Your Email', 'custom-contact-forms'), 'field_type' => 'Text', 'field_value' => '', 'field_maxlength' => '100', 'user_field' => 0, 'field_instructions' => __('Please enter your email address.', 'custom-contact-forms'));
+			$fixedWebsite = array('field_slug' => 'fixedWebsite', 'field_required' => 1, 'field_label' => __('Your Website', 'custom-contact-forms'), 'field_type' => 'Text', 'field_value' => '', 'field_maxlength' => '200', 'user_field' => 0, 'field_instructions' => __('Please enter your website.', 'custom-contact-forms'));
+			$emailSubject = array('field_slug' => 'emailSubject', 'field_required' => 1, 'field_label' => __('Email Subject', 'custom-contact-forms'), 'field_type' => 'Text', 'field_value' => '', 'field_maxlength' => '200', 'user_field' => 0, 'field_instructions' => __('Please enter a subject for the email.', 'custom-contact-forms'));
 			$reset = array('field_slug' => 'resetButton', 'field_type' => 'Reset', 'field_value' => __('Reset Form', 'custom-contact-forms'), 'user_field' => 0);
 			$states = array('field_slug' => 'usaStates', 'field_label' => __('Select a State', 'custom-contact-forms'), 'field_type' => 'Dropdown', 'user_field' => 0);
 			$countries = array('field_slug' => 'allCountries', 'field_label' => __('Select a Country', 'custom-contact-forms'), 'field_type' => 'Dropdown', 'user_field' => 0);
 			if (!$this->fieldSlugExists('captcha'))
 				$this->insertField($captcha, true);
+			if (!$this->fieldSlugExists('recaptcha'))
+				$this->insertField($recaptcha, true);
 			if (!$this->fieldSlugExists('usaStates'))
 				$this->insertField($states, true);
 			if (!$this->fieldSlugExists('allCountries'))
@@ -240,7 +257,7 @@ if (!class_exists('CustomContactFormsActivateDB')) {
 		
 		function columnExists($column, $table) {
 			global $wpdb;
-			if (!is_array($this->cache[$table]))
+			if (isset($this->cache[$table]) && !is_array($this->cache[$table]))
 				$this->cache[$table] = array();
 			if (empty($this->cache[$table]['columns']))
 				$this->cache[$table]['columns'] = $wpdb->get_results('SHOW COLUMNS FROM ' . $table, ARRAY_A);

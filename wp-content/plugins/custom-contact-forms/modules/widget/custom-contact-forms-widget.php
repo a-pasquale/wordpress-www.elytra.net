@@ -38,7 +38,7 @@ if (!class_exists('CustomContactFormsWidget')) {
 		function form($instance) {				
 			global $custom_contact_admin;
 			$forms = $custom_contact_admin->selectAllForms();
-			$form_id = esc_attr($instance['form_id']);
+			$form_id = (isset($instance['form_id'])) ? esc_attr($instance['form_id']) : 0;
 			?>
 			<p><label for="<?php echo $this->get_field_id('form_id'); ?>">
 			<?php _e('Choose a Form:', 'custom-contact-forms'); ?><br />
@@ -52,7 +52,7 @@ if (!class_exists('CustomContactFormsWidget')) {
 				?>
 			</select>
 			</label></p>
-            <p><a href="options-general.php?page=custom-contact-forms#create-forms"><?php _e('Create a Form', 'custom-contact-forms'); ?></a></p>
+            <p><a href="options-general.php?page=custom-contact-forms#forms"><?php _e('Create a Form', 'custom-contact-forms'); ?></a></p>
 			<?php 
     	}
 	}

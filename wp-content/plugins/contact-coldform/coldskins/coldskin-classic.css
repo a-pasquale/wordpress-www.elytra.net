@@ -1,0 +1,14 @@
+@charset "UTF-8";
+/* 
+	Classic CSS Styles (Coldskin) for Contact Coldform 
+	Complete set of CSS hooks @ http://m0n.co/b
+*/
+#coldform legend { margin: 5px 0 15px 0; }
+#coldform fieldset { width: 100%; overflow: hidden; margin: 5px 0; border: 0; }
+#coldform .coldform-carbon input { float: none; display: inline-block; width: 18px; }
+#coldform .coldform-carbon label { float: none; display: inline-block; }
+#coldform fieldset input { float: left; clear: both; width: 60%; padding: 5px 7px; }
+#coldform textarea { float: left; clear: both; width: 95%; padding: 5px 7px; }
+#coldform label { float: left; clear: both; width: 30%; margin-top: 3px; line-height: 1.8; font-size: 90%; }
+.coldform-thanks span { font-weight: bold; }
+.coldform-error { font-weight: bold; }

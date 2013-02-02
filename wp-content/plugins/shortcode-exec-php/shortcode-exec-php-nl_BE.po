@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Shortcode Exec PHP\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/shortcode-exec-php\n"
 "POT-Creation-Date: 2010-04-19 05:47+0000\n"
-"PO-Revision-Date: 2011-01-30 16:41+0100\n"
+"PO-Revision-Date: 2011-12-25 15:38+0100\n"
 "Last-Translator: Marcel Bokhorst\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -148,4 +148,34 @@ msgstr "Ga naar"
 
 msgid "Required capability for authors to execute shortcodes"
 msgstr "Vereiste capability voor auteurs om shortcodes uit te voeren"
+
+msgid "Optional description:"
+msgstr "Optionele beschrijving:"
+
+msgid "I don't want to support this plugin with the Sustainable Plugins Sponsorship Network"
+msgstr "Ik wil deze plugin niet ondersteunen met het Sustainable Plugins Sponsorship Network"
+
+msgid "Import/export"
+msgstr "Importeren/exporteren"
+
+msgid "Try right click if it doesn't work"
+msgstr "Probeer rechterklik als het niet werkt"
+
+msgid "Export"
+msgstr "Exporteren"
+
+msgid "Existing shortcodes with the same name will be overwritten!"
+msgstr "Bestaande shortcodes met dezelfde naam zullen worden overschreven!"
+
+msgid "Import"
+msgstr "Importeren"
+
+msgid "Only available if SimpleXML available"
+msgstr "Alleen beschikbaar als SimpleXML beschikbaar"
+
+msgid "Shortcodes imported:"
+msgstr "Shortcodes geïmporteerd:"
+
+msgid "Disable wpautop"
+msgstr "Zet wpautop uit"
 

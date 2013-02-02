@@ -1,16 +1,11 @@
 #customcontactforms-admin {
 	vertical-align:top;
-	margin:1em 0 30px 25px;
-	overflow:visible;
-	min-width:1020px;
+	margin:1em 15px 0px 0px;
+	
 }
 #customcontactforms-admin .plugin-header {
 	clear:both;
-	padding:0;
-	margin:0;
-	width:100%;
-	display:block;
-	height:60px;
+	height:50px;
 	background:url(../images/admin-icon.png) no-repeat 0px 10px;
 }
 #customcontactforms-admin .plugin-header h2 {
@@ -20,12 +15,14 @@
 	width:30%;
 	display:block; padding:0;
 }
-#customcontactforms-admin .plugin-header input {
+#customcontactforms-admin .plugin-header .links {
 	float:right;
-	display:block;
-	margin:0.83em 0;
-	margin-right:65px;
 	clear:none;
+	margin-top:25px;
+}
+#customcontactforms-admin .plugin-header input.quick-start-button { color:red; margin-right:5px; }
+#customcontactforms-admin .plugin-header input.usage-popover-button {
+	margin-right:10px;
 }
 #customcontactforms-admin input[type=button] {
 	-moz-background-clip:border;
@@ -34,10 +31,16 @@
 	background:#F2F2F2 url(../images/white-grad.png) repeat-x scroll left top;
 	text-shadow:0 1px 0 #FFFFFF;
 }
-#customcontactforms-admin .loading-img {
+#customcontactforms-admin .loading-img, #customcontactforms-admin .loading-img-inner, #customcontactforms-admin .loading-img-field-config {
 	display:none;
 }
-#customcontactforms-admin input[type=submit], #ccf-usage-popover input[type=submit] {
+
+#customcontactforms-admin .loading-img-container {
+	width:16px;
+	height:16px;
+	display:inline-block;
+}
+#customcontactforms-admin input[type=submit], .ccf-popover input[type=submit] {
 	-moz-background-clip:border;
 	-moz-background-inline-policy:continuous;
 	-moz-background-origin:padding;
@@ -48,16 +51,14 @@
 	text-shadow:0 -1px 0 rgba(0, 0, 0, 0.3);
 }
 #customcontactforms-admin label { font-weight:bold; }
-#customcontactforms-admin input, textarea, select {
-	font-size:1em;
-}
+
 #customcontactforms-admin .inside {
 	padding:5px 10px 10px 10px;
 }
 #customcontactforms-admin h3 {
 	margin:0 0 7px 0;
 	height:25px;
-	padding: 7px 0 0 9px;
+	padding: 7px 0 0 7px;
 }
 #customcontactforms-admin #instructions {
 	float:left;
@@ -66,19 +67,19 @@
 	margin:20px 1em 1em 1em;
 }
 #customcontactforms-admin #contact-author {
-	float:left;
-	width:380px;
-	margin:5px 1em 1em 6px;
+
 }
 
+#contact-author ul { float:left; margin-right:15px; }
+#contact-author ul.message { clear:both; float:none; }
+
 #customcontactforms-admin #custom-html {
-	float:left;
-	width:520px;
-	margin:5px 1em 1em 6px;
+	
 }
 #customcontactforms-admin #custom-html p { margin: 0; padding:0; }
 #customcontactforms-admin #custom-html #custom_html_textarea {
-	width:495px;
+	width:80%;
+	margin-top:10px;
 	height:250px;
 }
 #customcontactforms-admin #contact-author form label {
@@ -91,25 +92,24 @@
 
 #customcontactforms-admin .rate-me {
 	background-color:#FFFEEB;
-	width:920px;
 	border:1px solid #cccccc;
 	padding:7px;
 	display:block;
 	height:30px;
+	font-size:13px;
 	clear:both;
 	text-align:center;
-	margin:.5em 0 .8em 5px;
+	margin:.5em 5px .8em 5px;
 	-moz-border-radius:11px;
 	-webkit-border-radius:11px;
 	border-radius:11px;
 }
 
-#customcontactforms-admin .rate-me a { font-weight:bold; width:auto; margin-left:20px; display:block; float:left; text-decoration:none; margin:6px 0 10px 0; }
+#customcontactforms-admin .rate-me a { font-weight:bold; width:auto; margin-left:20px;font-size:13px; display:block; float:left; text-decoration:none; margin:6px 0 10px 0; }
 #customcontactforms-admin .rate-me input[type=image] { float:right; }
 
 #customcontactforms-admin .action-complete {
 	background-color:#2bd604;
-	width:920px;
 	border:1px solid #333;
 	padding:7px 7px 1px 7px;
 	display:block;
@@ -118,7 +118,7 @@
 	color:#000;
 	font-weight:bold;
 	text-align:center;
-	margin:.5em 0 .8em 5px;
+	margin:.5em 5px .8em 5px;
 	-moz-border-radius:11px;
 	-webkit-border-radius:11px;
 	border-radius:11px;
@@ -150,43 +150,77 @@
 #customcontactforms-admin .rate-me a span { text-decoration:underline }
 
 #customcontactforms-admin #form-submissions-table {
-	clear:both;
-	width:1000px;
+	
 }
 #customcontactforms-admin  .genesis {
 	text-align:center;
 	background-color:#FFFEEB;
-	width:920px;
 	border:1px solid #cccccc;
 	display:block;
 	height:30px;
+	color: #21759B;
+	font-size:13px;
 	font-weight:bold;
 	text-decoration:none;
 	padding:7px 7px 7px 7px;
-	margin:.5em 0 .8em 5px;
+	margin:.5em 5px .8em 5px;
 	-moz-border-radius:11px;
 	-webkit-border-radius:11px;
-	border-radius:11px;
-	font-size:11px;
-	line-height:normal;
+	border-radius:11px;	line-height:normal;
 }
 #customcontactforms-admin  .genesis span { color:red; font-weight:bold; }
 
+#customcontactforms-admin  .gravity {
+	text-align:center;
+	background-color:#FFFEEB;
+	border:1px solid #cccccc;
+	display:block;
+	height:20px;
+	color: red;
+	font-size:13px;
+	font-weight:bold;
+	text-decoration:none;
+	padding:7px 7px 7px 7px;
+	margin:.5em 5px .8em 5px;
+	-moz-border-radius:11px;
+	-webkit-border-radius:11px;
+	border-radius:11px;	line-height:normal;
+}
+
+#customcontactforms-admin  .checkbox-warning {
+	text-align:center;
+	background-color:#FF3333;
+	border:1px solid #ff0000;
+	display:block;
+	height:auto;
+	color: #fff;
+	font-size:13px;
+	font-weight:bold;
+	text-decoration:none;
+	padding:7px 7px 7px 7px;
+	margin:.5em 5px .8em 5px;
+	-moz-border-radius:11px;
+	-webkit-border-radius:11px;
+	border-radius:11px;	line-height:normal;
+}
+#customcontactforms-admin  .checkbox-warning span { font-weight:bold; }
+
 #customcontactforms-admin form.blog-horizontal-form {
 	background-color:#FFFEEB;
-	width:920px;
 	border:1px solid #cccccc;
 	padding:7px;
 	display:block;
 	height:30px;
+	font-size:13px;
 	text-align:center;
-	margin:.5em 0 .8em 5px;
+	margin:.5em 5px .8em 5px;
 	-moz-border-radius:11px;
 	-webkit-border-radius:11px;
 	border-radius:11px;
-	font-size:11px;
 	line-height:normal;
 }
+
+
 
 #customcontactforms-admin form.blog-horizontal-form input[type=text] { width:100px; }
 
@@ -205,47 +239,50 @@
 
 
 #customcontactforms-admin #import, #customcontactforms-admin #export {
-	clear:both;
-	width:1000px;
-	margin:20px 1em 1em 5px;
+	
 }
+
+#customcontactforms-admin .divider { border-top: 1px solid #CCC; margin-top:6px; margin-bottom:12px; }
+#customcontactforms-admin #export .left { float:left; width:49%; }
+#customcontactforms-admin #export .right { margin-left:51%; }
+#customcontactforms-admin #export span { font-weight:bold; }
 #customcontactforms-admin #export input { margin:7px; }
 #customcontactforms-admin #export p { padding:0; margin:0; }
 #customcontactforms-admin #import .choose_import { font-size:1.1em; clear:both; font-weight:bold; }
 #customcontactforms-admin #import input[type=file] {  margin:6px; }
 #customcontactforms-admin #import ul { margin:6px; }
 #customcontactforms-admin #import ul li { width:130px; float:left; }
-#customcontactforms-admin #import ul li label { font-size:.9em; }
+#customcontactforms-admin #import ul li label {  }
 #customcontactforms-admin #import input[type=checkbox] { margin-left:9px; }
 #customcontactforms-admin #import p { padding:0 0 5px 0; margin:0; }
 
 #customcontactforms-admin #manage-field-options table {
-	font-size:1em;
 	margin: 0 0 5px 14px;
 	width:95%;
 }
 #customcontactforms-admin #manage-field-options table td { padding-left:8px; padding-top:3px; padding-bottom:3px; }
 #customcontactforms-admin #manage-field-options table thead, 
 #customcontactforms-admin #manage-field-options table tfoot {
-	background-color:#f4f4f4;
+	background-color:#eee;
 }
 #customcontactforms-admin #manage-field-options table thead th,
 #customcontactforms-admin #manage-field-options table tfoot th { padding:8px; text-align:left; }
 #customcontactforms-admin #manage-field-options {
 	float:left;
 	clear:left;
-	width:530px;
-	margin:20px 1em 1em 1em;
+	width:59%;
 }
 #customcontactforms-admin #create-field-options {
 	float:left;
 	clear:none;
-	width:420px;
-	margin:20px 1em 1em 5px;
+	width:38%;
+	margin:0 0em 1em 10px;
 }
 
-#customcontactforms-admin #field-options .evenrow-field-options div  { background-color:#f9f9f9; }
-#customcontactforms-admin #field-options .evenrow-field-options { background-color:#f9f9f9; }
+#customcontactforms-admin #create-field-options form ul { margin-top:0; }
+
+#customcontactforms-admin #field-options .evenrow-field-options div  { background-color:#f0f0f0; }
+#customcontactforms-admin #field-options .evenrow-field-options { background-color:#f0f0f0; }
 
 .ccf-style-example {
 	background:url(../images/style-example.gif) no-repeat top left;
@@ -264,31 +301,28 @@
 	border:0;
 }
 #customcontactforms-admin #configure-mail {
-	clear:both;
-	width:1000px;
-	margin:20px 1em 1em 5px;
 }
 #customcontactforms-admin #configure-mail p { padding:0; margin:0; }
 #customcontactforms-admin #configure-mail form div { margin:10px 0 0 0; padding-top:10px; border-top:1px solid #ccc;}
 #customcontactforms-admin #configure-mail ul.left { float:left; width:48%; }
 #customcontactforms-admin #configure-mail ul.right { margin-left:48%; width:48%; }
 #customcontactforms-admin #create-styles {
-	clear:both;
-	width:1000px;
-	margin:20px 1em 1em 5px;
+	
 }
 #customcontactforms-admin #create-styles .inside, 
 #customcontactforms-admin #create-styles form { margin-top:0px; padding-top:0 }
-#customcontactforms-admin #create-styles .style_left { float:left; width:48% }
-#customcontactforms-admin #create-styles .style_right { width:48%; margin-left:51%; clear:none }
+#customcontactforms-admin #create-styles .style_left { float:left; width:48%; margin-top:0; }
+#customcontactforms-admin #create-styles .style_right { width:48%; margin-left:51%; margin-top:0; clear:none }
 #customcontactforms-admin #plugin-news {
-	clear:both;
-	width:1000px;
-	margin:20px 1em 1em 5px;
+	
 }
-#customcontactforms-admin #plugin-news ul li.first { border-bottom:1px dashed #666; }
+#customcontactforms-admin #plugin-news ul li a { color: #21759B; line-height:normal; font-family: Georgia,"Times New Roman","Bitstream Charter",Times,serif;
+    font-size: 13px; text-decoration:none; }
+	
+#customcontactforms-admin #plugin-news ul li .date { color: #999999; font-size: 12px; padding-left: 3px; }
+#customcontactforms-admin #plugin-news ul li .news-content p { margin-top:0; padding-top:0; }
+#customcontactforms-admin #plugin-news ul li .news-header { margin-bottom:5px; }
 #customcontactforms-admin #manage-styles {
-	width:1000px;
 }
 #customcontactforms-admin #manage-styles td { border:0; }
 #customcontactforms-admin #manage-styles label {
@@ -298,12 +332,10 @@
 	width:80px;
 }
 #customcontactforms-admin #general-settings {
-	clear:both;
-	width:1000px;
-	margin:20px 1em 1em 5px;
+	
 }
-#customcontactforms-admin #general-settings .gleft { float:left; width:48%; clear:none; }
-#customcontactforms-admin #general-settings .gright { clear:none; float:none; width:48%; margin-left:49%; }
+#customcontactforms-admin #general-settings .gleft { float:left; width:48%; margin-top:0; clear:none; }
+#customcontactforms-admin #general-settings .gright { clear:none; float:none; width:48%;  margin-top:0; margin-left:49%; }
 #customcontactforms-admin #general-settings label { font-weight:bold; }
 #customcontactforms-admin #general-settings form div p.descrip {
 	font-style:italic;
@@ -315,20 +347,17 @@
 	border-top:1px solid #ccc;
 }
 #customcontactforms-admin #create-fields {
-	float:left;
-	clear:left;
-	width:450px;
-	margin:0 1em 1em 5px;
+	
 }
+#customcontactforms-admin #create-fields .left { float:left; width:48%; margin-top:0; }
+#customcontactforms-admin #create-fields .right { margin-left:50%; margin-top:0; }
+#customcontactforms-admin #create-fields .file-fields { display:none; }
 #customcontactforms-admin #create-forms {
-	float:left;
-	width:500px;
-	border-left:1px solid #ccc;
-	margin:0 1em 1em 1em;
+	
 }
-#customcontactforms-admin #create-forms .inside div p {
-	font-size:.8em;
-}
+#customcontactforms-admin #create-forms .left { float:left; width:48%; margin-top:0; }
+#customcontactforms-admin #create-forms .right { width:48%; margin-left:50%; margin-top:0; }
+
 #customcontactforms-admin #create-forms .role{ display:inline; padding-left:5px; }
 #customcontactforms-admin #create-fields .attach, #customcontactforms-admin #create-forms .attach { margin-top:6px; }
 #customcontactforms-admin .manage-h3 {
@@ -336,11 +365,46 @@
 	margin-top:20px;
 }
 #customcontactforms-admin #manage-fields {
-	width:1000px;
+	
 }
 #customcontactforms-admin #manage-fields td { border:0; }
-#customcontactforms-admin #manage-fields .row-one { 
-	margin-bottom:15px;
+#customcontactforms-admin #manage-fields .one, #customcontactforms-admin #manage-fields .two { 
+	float:left; width:33%; margin-bottom:10px;
+}
+#customcontactforms-admin #manage-fields .one label , #customcontactforms-admin #manage-fields .two label {
+	float:left; width:100px; padding-right:10px;
+}
+#customcontactforms-admin #manage-fields .three label { padding-right:10px; display:inline-block; }
+#customcontactforms-admin #manage-fields .one textarea, #customcontactforms-admin #manage-fields .two textarea {
+	float:left; width:220px; height:100px;
+}
+#customcontactforms-admin #manage-fields .three { 
+	float:left; width:33%; margin-bottom:10px;
+}
+
+
+
+
+
+#customcontactforms-admin #manage-fixed-fields .one, #customcontactforms-admin #manage-fixed-fields .two { 
+	float:left; width:33%; margin-bottom:10px;
+}
+#customcontactforms-admin #manage-fixed-fields .one label , #customcontactforms-admin #manage-fixed-fields .two label {
+	float:left; width:100px; padding-right:10px;
+}
+#customcontactforms-admin #manage-fixed-fields .three label { padding-right:10px; display:inline-block; }
+#customcontactforms-admin #manage-fixed-fields .one textarea, #customcontactforms-admin #manage-fixed-fields .two textarea {
+	float:left; width:220px; height:100px;
+}
+#customcontactforms-admin #manage-fixed-fields .three { 
+	float:left; width:33%; margin-bottom:10px;
+}
+
+
+
+
+#customcontactforms-admin #manage-fields .row-two { 
+	margin-top:6px;
 }
 #customcontactforms-admin #manage-fields .row-one label { margin-right:4px; }
 #customcontactforms-admin #manage-fields .attach-field-options {
@@ -356,33 +420,35 @@
 	width:470px;
 }
 #customcontactforms-admin #manage-forms {
-	width:1000px;
-	margin-right:10px;
 }
+#customcontactforms-admin   .fattach span { font-weight:bold; }
 #customcontactforms-admin   .fattach  {
-	margin:6px;
+	margin:20px auto 6px auto;
 	clear:both;
-	-moz-border-radius:6px;
-	padding:6px 6px 6px 15px;
-	-webkit-border-radius:6px;
-	border-radius:6px;
-	-moz-box-shadow:0 0 2px #123;
-	-webkit-box-shadow: 0 0 2px #123;
-	box-shadow:0 0 2px #123;
+	padding:6px;
 	background-color:#FFFEEB;
 	display:block;
-	height:56px;
-	width:90%;
+	width:98%;
+	border:1px solid #999;
+	min-height:100px;
 }
-#customcontactforms-admin   .form-attach, #customcontactforms-admin   .field-attach {
-	width:49%; float:left; text-align:left; clear:none;
+#customcontactforms-admin  .fattach .attach {
+	width:49%; float:right; text-align:left; clear:none;
 }
-#customcontactforms-admin  .form-detach, #customcontactforms-admin   .field-detach {
-	width:49%; float:left; text-align:left; clear:none;
+#customcontactforms-admin  .fattach .attached {
+	width:49%; text-align:left; clear:none;
 }
 #customcontactforms-admin #manage-forms td { border:0; }
+#customcontactforms-admin #manage-forms .left { float:left; width:48%; text-align:left; }
+#customcontactforms-admin #manage-forms .right { float:right; width:48%; text-align:left; }
+#customcontactforms-admin #manage-forms .left li, #customcontactforms-admin #manage-forms .right li { clear:both; }
+#customcontactforms-admin #manage-forms .left ul, #customcontactforms-admin #manage-forms .right ul { border:1px solid #999; padding:6px; }
+#customcontactforms-admin #manage-forms .left textarea, #customcontactforms-admin #manage-forms .right textarea { width:250px; height:100px; }
+#customcontactforms-admin #manage-forms .left ul ul { border:0; float:left; }
+#customcontactforms-admin #manage-forms .left label, #customcontactforms-admin #manage-forms .right label { display:block; float:left; width:200px; }
+#customcontactforms-admin #manage-forms .left span, #customcontactforms-admin #manage-forms .right span { font-weight:bold; font-style:italic; }
 #customcontactforms-admin #manage-fixed-fields {
-	width:1000px;
+	
 }
 #customcontactforms-admin #manage-fixed-fields td { border:0; }
 #customcontactforms-admin #manage-fixed-fields .field_descrip { padding-bottom:5px; }
@@ -416,34 +482,26 @@
 
 #customcontactforms-admin #plugin-nav  {
 	clear:both;
-	max-width:1000px;
-}
-#customcontactforms-admin #plugin-nav { text-align:center; border-bottom:1px #ccc dashed; margin:0 0 10px 0; padding:0 0 6px 0; }
-#customcontactforms-admin #plugin-nav li  {
-	border-right:1px solid #666; display:inline; padding:0 8px 0 8px;
-}
-#customcontactforms-admin #plugin-nav li.last  {
-	border-right:none;
 }
 /* CCF Install Popover -------------------------------- */
-#ccf-usage-popover {
+.ccf-popover {
 	display:none;
 }
-#ccf-usage-popover #popover-tof { text-align:center; border-bottom:1px #ccc dashed; margin:5px 0 10px 0; padding:0 0 6px 0; }
-#ccf-usage-popover #popover-tof li  { display:inline; padding:0 2px 0 3px;
+.ccf-popover #popover-tof { text-align:center; border-bottom:1px #ccc dashed; margin:5px 0 10px 0; padding:0 0 6px 0; }
+.ccf-popover #popover-tof li  { display:inline; padding:0 2px 0 3px;
 }
 
-#ccf-usage-popover div.popover-body span { font-weight:bold; }
-#ccf-usage-popover div.popover-body {
+.ccf-popover div.popover-body span { font-weight:bold; }
+.ccf-popover div.popover-body {
 	 text-align:left;
 	 padding:3px;
 }
-#ccf-usage-popover div.popover-body ul { margin:5px 0px 5px 8px; padding:0; border-top:1px solid #efefef; }
-#ccf-usage-popover div.popover-body ul ul { margin:0px 0px 2px 30px; padding:0; list-style-type:disc; border-top:none; }
-#ccf-usage-popover div.popover-body ul li { margin-left:20px; }
-#ccf-usage-popover div.popover-body p { padding:8px; font-size:1em; text-align:left; }
-#ccf-usage-popover div.popover-body form { width:100%; text-align:center; }
-#ccf-usage-popover div.popover-body .insert-default-content-button {
+.ccf-popover div.popover-body ul { margin:5px 0px 5px 8px; padding:0; border-top:1px solid #efefef; }
+.ccf-popover div.popover-body ul ul { margin:0px 0px 2px 30px; padding:0; list-style-type:disc; border-top:none; }
+.ccf-popover div.popover-body ul li { margin-left:20px; }
+.ccf-popover div.popover-body p { padding:8px; text-align:left; }
+.ccf-popover div.popover-body form { width:100%; text-align:center; }
+.ccf-popover div.popover-body .insert-default-content-button {
 	margin:5px auto 5px auto;
 }
 
@@ -524,7 +582,7 @@
 	height:auto;
 	padding:0px;
 	margin:0 0 0 -75px;
-	border:12px solid #efefef;
+	border:12px solid #999999;
 	background-color:#fff;
 	-moz-border-radius:12px;
 	-webkit-border-radius:12px;
@@ -583,13 +641,12 @@
 
 #customcontactforms-admin form.blog-horizontal-form {
 	background-color:#FFFEEB;
-	width:920px;
 	border:1px solid #cccccc;
 	padding:7px;
 	display:block;
 	height:30px;
 	text-align:center;
-	margin:.5em 0 .8em 5px;
+	margin:.5em 5px .8em 5px;
 	-moz-border-radius:11px;
 	-webkit-border-radius:11px;
 	border-radius:11px;
@@ -597,3 +654,30 @@
 
 #customcontactforms-admin form.blog-horizontal-form span { font-weight:bold; padding-right:4px; }
 
+.ui-tabs .ui-tabs-panel {
+    background: none repeat scroll 0 0 transparent;
+    border-width: 0;
+    display: block;
+    padding: 1em 5px 5px 5px;
+}
+
+.ui-widget-content {
+    border: 0px solid #AAAAAA;
+}
+
+#message { margin-bottom:9px; }
+#message-textarea { height: 196px; width: 95%; margin-bottom:9px; }
+
+#customcontactforms-admin .widefat { min-width:1060px; }
+
+.widefat thead th:first-of-type {
+	-webkit-border-top-left-radius: 0px;
+	border-top-left-radius: 0px;
+}
+
+.widefat thead th:last-of-type {
+-webkit-border-top-right-radius: 0px;
+border-top-right-radius: 0px;
+}
+
+#customcontactforms-admin .sortable li span { display:block; width:20px; text-align:center; height:18px; padding-right:10px; float:left; }

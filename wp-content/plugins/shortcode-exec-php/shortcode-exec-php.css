@@ -3,11 +3,6 @@
 	Style sheet Shortcode Exec PHP WordPress Plugin
 */
 
-/* Sustainable Plugins Sponsorship Network */
-#scep_sponsorship {
-	font-size: 9px;
-}
-
 /* Admin panel */
 #scep_admin_panel {
 	float: left;
@@ -62,6 +57,14 @@
 	text-align: right;
 }
 
+.scep_shortcode_name {
+	width: 150px;
+}
+
+.scep_shortcode_description {
+	width: 400px;
+}
+
 /* Code box height */
 #scep_option_width, #scep_option_height {
 	width: 50px;
@@ -102,3 +105,9 @@
 	font-family: monospace;
 }
 
+#scep_pro {
+	border: black solid 1px;
+	padding: 0 10px 10px 10px;
+	margin: 10px 0 20px 0;
+	display: inline-block;
+}

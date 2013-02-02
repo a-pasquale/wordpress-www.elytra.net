@@ -2,9 +2,9 @@
 Contributors: Marcel Bokhorst
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=AJSBB7DGNA3MJ&lc=US&item_name=Shortcode%20Exec%20PHP%20WordPress%20Plugin&item_number=Marcel%20Bokhorst&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted
 Tags: admin, shortcode, run, php, eval, execute, exec, code, post, posts, page, pages, comment, comments, sidebar, widget, widgets, rss, feed, feeds, AJAX, wpmu, tinymce
-Requires at least: 2.8
-Tested up to: 3.1
-Stable tag: 1.26
+Requires at least: 3.1
+Tested up to: 3.5
+Stable tag: 1.45
 
 Execute arbitrary, reusable PHP code in posts, pages, comments, widgets and RSS feeds using shortcodes in a safe and easy way
 
@@ -19,10 +19,11 @@ Advantages over other solutions:
 1. All PHP code is organized at one place
 1. [Syntax highlighting](http://en.wikipedia.org/wiki/Syntax_highlighting "Syntax highlighting")
 1. You can test your PHP code before using it
+1. Import/export of shortcode definitions
 
 For those concerned about security (hopefully everybody): only administrators can define shortcodes and associated PHP code (see also the [FAQ](http://wordpress.org/extend/plugins/shortcode-exec-php/faq/ "FAQ")).
 
-Please report any issue you have with this plugin on the [support page](http://blog.bokhorst.biz/3626/computers-en-internet/wordpress-plugin-shortcode-exec-php/ "Marcel's weblog"), so I can at least try to fix it. If you rate this plugin low, please [let me know why](http://blog.bokhorst.biz/3626/computers-en-internet/wordpress-plugin-shortcode-exec-php/#respond "Marcel's weblog").
+Please report any issue you have with this plugin in [the forum](http://forum.faircode.eu/).
 
 See my [other plugins](http://wordpress.org/extend/plugins/profile/m66b "Marcel Bokhorst").
 
@@ -45,6 +46,10 @@ See my [other plugins](http://wordpress.org/extend/plugins/profile/m66b "Marcel 
 1. Activate the plugin through the Plugins menu in WordPress
 
 == Frequently Asked Questions ==
+
+= Where can I define shortcodes? =
+
+WordPress menu Tools > Shortcode Exec PHP
 
 = What happens when I disable a shortcode? =
 
@@ -101,17 +106,84 @@ The post or page author has insufficient privileges to execute shortcodes.
 
 Note that your code is not directly executed in the WordPress environment, but in a function.
 This means for example that a *global $wpdb;* is needed to access the [database class](http://codex.wordpress.org/Function_Reference/wpdb_Class "wpdb class").
-If I am around I am happy to help you with your code, see next question.
 
 = Where can I ask questions, report bugs and request features? =
 
-You can write a comment on the [support page](http://blog.bokhorst.biz/3626/computers-en-internet/wordpress-plugin-shortcode-exec-php/ "Marcel's weblog").
+You can use the [the forum](http://forum.faircode.eu/).
 
 == Screenshots ==
 
 1. Shortcode exec PHP
 
 == Changelog ==
+
+= 1.45 =
+* Added Slovak (sk\_SK) translation
+
+= 1.44 =
+* Bugfix: html entities (by *Joe Pruett*, thanks!)
+* Added Lithuanian (lt\_LT) by [Host1Free](http://www.host1free.com/ "Host1Free")
+
+= 1.43 =
+* Bugfix: added missing file
+
+= 1.42 =
+* Added link to [Pro version](http://www.faircode.eu/scepro/ "Shortcode Exec PHP Pro")
+
+= 1.41 =
+* Bugfix: require *manage_options* capability when site activated on a multisite network
+* Note: PHP4 support will be dropped from the next release
+
+= 1.39 =
+* Bugfix: require *manage_options* capability when site activated on a multisite network
+
+= 1.38 =
+* New feature: option to disable [wpautop](http://codex.wordpress.org/Function_Reference/wpautop "wpautop")
+* Updated support page
+* Updated Chinese (zh\_CN) translation by [Jie](http://thejie.org/ "Jie")
+* Updated Dutch (nl\_NL) and Flemish (nl\_BE) translations
+* Updated Norwegian (nb\_NO) translation by [Stein Ivar Johnsen](http://www.idyrøy.no/ "Stein Ivar Johnsen")
+* You can download the development version [here](http://downloads.wordpress.org/plugin/shortcode-exec-php.zip)
+
+= 1.37 =
+* Removed [Sustainable Plugins Sponsorship Network](http://pluginsponsors.com/)
+
+= 1.36 =
+* Bugfix: PHP 4 compatibility
+
+= 1.35 =
+* Bugfix: no EditArea on network sites
+
+= 1.34 =
+* New feature: import/export (requires [SimpleXML](http://php.net/manual/en/book.simplexml.php "SimpleXML"))
+* Updated Dutch (nl\_NL) and Flemish (nl\_BE) translations
+* Updated Norwegian (nb\_NO) translation by [Stein Ivar Johnsen](http://www.idyrøy.no/ "Stein Ivar Johnsen")
+* Tested with WordPress 3.3
+
+= 1.33 =
+* Improvement: removed dependency on *PLUGINDIR*
+* Changed to minimum WordPress version 3.1
+* Updated Norwegian (nb\_NO) translation by [Stein Ivar Johnsen](http://www.idyrøy.no/ "Stein Ivar Johnsen")
+
+= 1.32 =
+* Added *Sustainable Plugins Sponsorship Network* again
+* Updated Dutch (nl\_NL) and Flemish (nl\_BE) translations
+
+= 1.31 =
+* Removed *Sustainable Plugins Sponsorship Network*
+
+= 1.30 =
+* Bugfix: solved a few warnings
+
+= 1.29 =
+* Bugfix: jQuery compatibility WordPress version 3.2
+
+= 1.28 =
+* Improvement: added title to description field
+* Updated Dutch (nl\_NL) and Flemish (nl\_BE) translations
+
+= 1.27 =
+* Improvement: added description field for TinyMCE
 
 = 1.26 =
 * Bugfix: remove old shortcode definition when renaming
@@ -268,6 +340,60 @@ You can write a comment on the [support page](http://blog.bokhorst.biz/3626/comp
 * Development version
 
 == Upgrade Notice ==
+
+= 1.45 =
+New translation
+
+= 1.44 =
+One bugfix, new translation
+
+= 1.43 =
+One bugfix
+
+= 1.42
+Added link to Pro version
+
+= 1.41 =
+One bugfix
+
+= 1.39 =
+One bugfix
+
+= 1.38 =
+One new feature, translation updates
+
+= 1.37 =
+Compliance
+
+= 1.36 =
+Compatibility
+
+= 1.35 =
+One bugfix
+
+= 1.34 =
+One new feature, compatibility
+
+= 1.33 =
+Compatibility
+
+= 1.32 =
+Compatibility
+
+= 1.31 =
+Compatibility
+
+= 1.30 =
+One bugfix
+
+= 1.29 =
+One bugfix
+
+= 1.28 =
+One improvement, updated translations
+
+= 1.27 =
+One improvement
 
 = 1.26 =
 Bugfixes, improvement

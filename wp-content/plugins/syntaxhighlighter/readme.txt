@@ -3,7 +3,7 @@ Contributors: Viper007Bond, automattic
 Donate link: http://www.viper007bond.com/wordpress-plugins/syntaxhighlighter/donate/
 Tags: code, sourcecode, php, xhtml, html, css, WordPress.com
 Requires at least: 2.7
-Tested up to: 3.1
+Tested up to: 3.3
 Stable tag: trunk
 
 Easily post syntax-highlighted code to your site without having to modify the code at all. As seen on WordPress.com.
@@ -54,6 +54,17 @@ Make sure your theme's `footer.php` file has `<?php wp_footer(); ?>` somewhere i
 2. A part of the Settings page which controls the defaults.
 
 == ChangeLog ==
+
+= Version 3.1.3 =
+
+* Hide vertical overflow so that a vertical scrollbar doesn't show up in Chrome. Props Caio Proiete. Bump SH script version to bust browser caches.
+* Allow the plugin's shortcodes to be escaped using double brackets like so: `[[code]Foobar[/code]]`. This is a core feature, but calling `do_shortcode()` on the content as it went into the database caused the extra brackets to be stripped.
+
+= Version 3.1.2 =
+
+* Register some placeholder shortcodes so that `strip_shortcodes()` and such work properly. Previously the shortcodes were only registered during the brief moment that they were processed by one of this plugin's filters.
+* Add a `notranslate` CSS class to the `<pre>` output so that Google won't attempt to translate it. Props [Otto](http://ottopress.com/2011/google-translation-tip/).
+* Run the CSS classes aka SyntaxHighlighter script parameters through a filter.
 
 = Version 3.1.1 =
 

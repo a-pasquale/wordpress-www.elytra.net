@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Shortcode Exec PHP\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/shortcode-exec-php\n"
 "POT-Creation-Date: 2010-04-19 05:47+0000\n"
-"PO-Revision-Date: 2011-02-27 18:17+0100\n"
+"PO-Revision-Date: 2011-12-26 12:57+0100\n"
 "Last-Translator: Marcel Bokhorst\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -148,4 +148,34 @@ msgstr "Gå til"
 
 msgid "Required capability for authors to execute shortcodes"
 msgstr "Nødvendig tilgang for forfattere å utføre kortkoder"
+
+msgid "Optional description:"
+msgstr "Valgfri beskrivelse:"
+
+msgid "I don't want to support this plugin with the Sustainable Plugins Sponsorship Network"
+msgstr "Jeg ønsker ikke å støtte dette innstikk med Sustainable Plugins Sponsing Network"
+
+msgid "Import/export"
+msgstr "Importer/eksporter"
+
+msgid "Try right click if it doesn't work"
+msgstr "Prøv å høyreklikk hvis det ikke virker"
+
+msgid "Export"
+msgstr "Eksport"
+
+msgid "Existing shortcodes with the same name will be overwritten!"
+msgstr "Eksisterende kortkoder med samme navn vil bli overskrevet!"
+
+msgid "Import"
+msgstr "Importer"
+
+msgid "Only available if SimpleXML available"
+msgstr "Bare tilgjengelig hvis SimpleXML tilgjengelig"
+
+msgid "Shortcodes imported:"
+msgstr "Kortkoder importert:"
+
+msgid "Disable wpautop"
+msgstr "Deaktiver wpautop"
 

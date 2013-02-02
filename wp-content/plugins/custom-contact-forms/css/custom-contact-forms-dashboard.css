@@ -2,7 +2,11 @@
 	width:100%;
 	margin:0 0 15px 0;
 }
-#ccf-dashboard thead tr th { text-align:left; padding-left:2px; padding-bottom:7px; }
+#ccf-dashboard thead tr th { text-align:left; padding-left:2px; padding-bottom:7px; color: #8F8F8F;
+    font-size: 14px;
+	border-bottom:1px solid #ececec;
+	font-weight:400; }
+
 #ccf-dashboard  tr { margin:0; }
 #ccf-dashboard  td { margin:0; padding: 3px;}
 #ccf-dashboard  tr.even { background-color:#f0f0f0; }

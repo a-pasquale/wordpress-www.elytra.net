@@ -1,94 +1,149 @@
-=== Plugin Name ===
+=== Contact Coldform ===
 
 Plugin Name: Contact Coldform
-Plugin URI: http://perishablepress.com/press/2008/01/08/contact-coldform/
-Description: Contact Coldform is a remixed plug-n-play contact form for WordPress.
-Tags: contact, form, contact-form
+Plugin URI: http://perishablepress.com/contact-coldform/
+Description: Secure, lightweight and flexible contact form with plenty of options and squeaky clean markup.
+Tags: captcha, contact, contact form, email, form, mail
 Author: Jeff Starr
-Author URI: http://perishablepress.com/
+Author URI: http://monzilla.biz/
+Contributors: specialk
 Donate link: http://digwp.com/book/
-Requires at least: 2.3
-Tested up to: 3.0.5
-Stable tag: 1.0
-Version: 1.0
+Requires at least: 3.0
+Tested up to: 3.5
+Stable tag: 20130103
+Version: 20130103
+License: GPL v2
+
+Contact Coldform is a secure, lightweight and flexible contact form with plenty of options and squeaky clean markup.
 
 == Description ==
 
-Contact Coldform is designed with a sharp focus on clean code, solid performance, and ease of use. No frills, no gimmicks, only pure contact-form satisfaction. If you are looking for a solid, well-designed, user-friendly, fully customizable contact form, look no further: Coldform is perfect for any WordPress blogger. The comprehensive Options panel makes Coldform easy for beginners to take full control, while the consistent, logical PHP/(X)HTML code makes Coldform ideal for advanced users desiring customized functionality. The best of both worlds: a "clean-slate" contact form that provides everything you want and nothing you don't!
+[Contact Coldform](http://perishablepress.com/contact-coldform/) is a secure, lightweight, flexible contact form with plenty of options and squeaky clean markup. Coldform blocks spam while making it easy for your visitors to contact you from your WordPress-powered website. The comprehensive Settings Page makes it easy to take full control with plenty of options and several built-in themes for styling the form. Coldform delivers everything you need and nothing you don&rsquo;t -- no frills, no gimmicks, just pure contact-form satisfaction.
+
+**Overview**
+
+* Plug-n-play: use shortcode or template tag to display Coldform anywhere
+* Sweet emails: Coldform sends descriptive, well-formatted messages in plain-text
+* Safe and secure: Coldform blocks spam and filters malicious content
+* Ultra-clean code: lightweight, standards-compliant, semantic, valid HTML markup
+* Fully customizable: easy to configure and style from the Coldform Settings page
 
 **Features**
 
-* Compatible with WordPress versions 1.5 - 2.8 and beyond
-* Plug-n-play: add Coldform to any WordPress page or post
-* Simple installation — upload, activate, and customize
-* Complete WordPress Administrative Options panel for full control
-* Ultra-clean code output: standards-compliant, valid (X)HTML
-* Customizable anti-spam challenge question to protect against spam
-* Secure form processing and protection against malicious attacks
-* Same-page error messages to help users complete required fields
-* No obtrusive markup or code added to your <code><head></code>
-* Includes option to enable users to send carbon copies to themselves
-* Coldform message includes IP, host, agent, and much more
+* Slick, toggling-panel Settings Page makes it easy to customize and style Coldform
+* Style Coldform using built-in "coldskins" or upload some custom CSS
+* Provides template tag to display Coldform anywhere in your theme
+* Provides shortcode to display Coldform on any post or page
+* Displays customizable confirmation message to the sender
+
+**Anti-spam &amp; Security**
+
+* Captcha: Coldform includes challenge question/answer (w/ option to disable for users)
+* Bot trap: hidden input field further reduces automated spam
+* Firewall: secure form processing protects against bad bots and malicious input
+* User-friendly: same-page error messages to help users complete required fields
+
+**Customize Everything**
+
+* Includes option to enable users to receive carbon copies
+* Coldform message includes IP, host, agent, and other user details
 * Customizable form-field captions, error messages, and success message
-* Customizable drop-in CSS skins for easy styling
-* Customizable CSS attributes (via Admin)
-* Customizable everything!
+* Includes three built-in themes "coldskins" to style, or
+* Style the Coldform with your own custom CSS
+* Option to add a custom prefix to the subject line
+* Option to disable the captcha for registered users
 
-Coldform is perfect for WordPress users who want full control over the markup, presentation, and functionality of their contact form. Coldform presents delicious code on every front:
+**Clean Codes**
 
-* Squeaky-clean PHP: every line like a fine wine.
-* Crispy-clean markup: source code presents with proper alignment and spacing.
-* Shiny-clean email formatting: Coldform-processed emails deliver complete information in a sharp, organized fashion.
+Coldform brings delicious code on every front:
+
+* Squeaky-clean PHP: every line like a fine wine
+* Crispy-clean markup: valid, semantic source code with proper formatting
+* Shiny-clean emails: Coldform emails deliver descriptive, well-formatted content
+* Better performance: conditional loading of styles only when Coldform is displayed
+
+**More Features**
+
+* Works perfectly without JavaScript.
+* Option to load CSS and custom styles only when/where Coldform is displayed
+* Option to reset default settings
+* Options to customize many aspects of the form
+* Options to customize success, error, and spam messages
+* Option to enable and disable CSS styles
 
 == Installation ==
 
-1. Unzip the "contact-coldform" directory.
-2. Upload directory to your "plugins" folder and activate.
-3. Insert <code><!--coldform--></code> to any page or post.
-4. Customize your preferences in the Coldform Admin Options panel.
+Typical plugin install: upload, activate, and customize in the WP Admin.
 
-Note: when including the <code><!--coldform--></code> tag into your posts and pages, it is important to **disable the rich-text editor** before doing so. The setting for the RTE is located in your User Profile Page.
+1. Unzip and upload the entire directory to your "plugins" folder and activate
+2. Use the shortcode to display Coldform on any post or page, or:
+3. Use the template tag to display the Coldform anywhere in your theme.
+4. Visit the Coldform Settings Page to configure your options and for more info.
 
-**Styling Contact Coldform**
+Shortcode: `[coldform]`
 
-Contact Coldform features the following default CSS hooks:
+Template tag: `<?php if (function_exists('contact_coldform_public')) contact_coldform_public(); ?>`
 
-* The entire form is enclosed within <code><div id="coldform"></code> for easy, targeted styling.
-* Each form section is enclosed within a <code><fieldset></code> for usability and accessibility.
-* Each <code><fieldset></code> contains a <code><legend class="hide"></code> that may be hidden.
-* Each input field has a corresponding label: <code><label class="label"></code>.
-* Each input label has a corresponding input: <code><input class="input" type="text"></code>.
-* The form submit button includes its own submit class: <code><input class="submit"></code>.
-* Coldform contains a <code><div class="clear"></div></code> to ensure proper layout.
-* Everything else is customizable via the Coldform Options panel.
+Check out the [Coldform Demo](http://bluefeed.net/wordpress/contact-coldform/) and its [CSS hooks](http://m0n.co/b).
 
-To help get you going with styling the Colform, I have prepared a number of "Coldskins" that you can just drop into your theme's style.css file. To download some of these plug-n-play CSS templates, check out: http://perishablepress.com/press/2008/01/15/contact-coldskins/
-
-**Demo**
-
-Demo available at Perishable Press: http://perishablepress.com/press/contact/
-
-**More Information**
-
-For complete details visit: http://perishablepress.com/press/2008/01/08/contact-coldform/
+For more information, visit the [Coldform Homepage](http://perishablepress.com/contact-coldform/).
 
 == Upgrade Notice ==
 
-To upgrade Contact Coldform, remove old version and replace with new version. Nothing else needs done.
+__Important!__ Many things have changed in the new version of the plugin. Please copy/paste your current Coldform settings to a safe place. Then update the plugin as usual, using your saved settings while configuring the new version.
 
 == Screenshots ==
 
-Available at the plugin Home Page: http://perishablepress.com/press/2008/01/08/contact-coldform/
+Screenshots available at the [Coldform Homepage](http://perishablepress.com/contact-coldform/#screenshots).
 
 == Changelog ==
 
-* Version 0.88.1 - Compatibility with WordPress version 2.8.1 by setting admin_menu
-* Version 0.88.0 - Initial release.
+= Version 20130103 =
+
+* Added margins to buttons (now required due to CSS changes in WP 3.5)
+
+= Version 20121119 =
+
+* Now supports both shortcodes: `[coldform]` and `[contact_coldform]`
+* Renamed `register_my_style()` to `contact_coldform_register_style()`
+* Removed border on all fieldsets via CSS
+* Added padding to input and textareas via CSS
+* Replaced answer with question in anti-spam placeholder
+* Added placeholder attributes to error fields
+* Fixed styles to load on success page
+
+= Version 20121031 =
+
+* rebuilt with cleaner, smarter code
+* restructured markup, cleaner hooks
+* revamped settings page with toggling
+* includes three "coldskins" for styling
+* enable user to upload custom CSS styles
+* toggle on/off the built-in coldskins
+* conditional load of styles only on Coldform
+* improved markup for required, error, success output
+* option to disable the captcha for registered users
+* now use admin email, name, site title by default
+* now using built-in wp_mail for email
+* removed the credit link and option
+* add option for subject line prefix
+* add HTML5 placeholder attributes
+* add hidden anti-spam field
+
+= Version 0.88.1 =
+
+* Compatibility with WordPress version 2.8.1 by setting `admin_menu`.
+
+= Version 0.88.0 =
+
+* Initial release.
 
 == Frequently Asked Questions ==
 
-See comments section at the plugin Home Page: Available at the plugin Home Page: http://perishablepress.com/press/2008/01/08/contact-coldform/
+To ask a question, visit the [Coldform Homepage](http://perishablepress.com/contact-coldform/) or [contact me](http://perishablepress.com/contact/).
 
 == Donations ==
 
-To support this and other plugins, consider buying a copy of our book, [Digging into WordPress](http://digwp.com/). Links, tweets, and Likes are also appreciated! Thanks :)
+I created this plugin with love for the WP community. To show support, consider purchasing my new book, [.htaccess made easy](http://htaccessbook.com/), or my WordPress book, [Digging into WordPress](http://digwp.com/).
+
+Links, tweets and likes also appreciated. Thanks! :)

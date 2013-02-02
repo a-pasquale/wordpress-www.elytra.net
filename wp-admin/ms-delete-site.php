@@ -25,6 +25,8 @@ if ( isset( $_GET['h'] ) && $_GET['h'] != '' && get_option( 'delete_blog_hash' )
 	}
 }
 
+$blog = get_blog_details();
+
 $title = __( 'Delete Site' );
 $parent_file = 'tools.php';
 require_once( './admin-header.php' );
@@ -34,6 +36,8 @@ screen_icon();
 echo '<h2>' . esc_html( $title ) . '</h2>';
 
 if ( isset( $_POST['action'] ) && $_POST['action'] == 'deleteblog' && isset( $_POST['confirmdelete'] ) && $_POST['confirmdelete'] == '1' ) {
+	check_admin_referer( 'delete-blog' );
+
 	$hash = wp_generate_password( 20, false );
 	update_option( 'delete_blog_hash', $hash );
 
@@ -68,13 +72,13 @@ Webmaster
 	<p><?php _e( 'Remember, once deleted your site cannot be restored.' ) ?></p>
 
 	<form method="post" name="deletedirect">
+		<?php wp_nonce_field( 'delete-blog' ) ?>
 		<input type="hidden" name="action" value="deleteblog" />
-		<p><input id="confirmdelete" type="checkbox" name="confirmdelete" value="1" /> <label for="confirmdelete"><strong><?php printf( __( "I'm sure I want to permanently disable my site, and I am aware I can never get it back or use %s again." ), is_subdomain_install() ? $current_blog->domain : $current_blog->domain . $current_blog->path ); ?></strong></label></p>
+		<p><input id="confirmdelete" type="checkbox" name="confirmdelete" value="1" /> <label for="confirmdelete"><strong><?php printf( __( "I'm sure I want to permanently disable my site, and I am aware I can never get it back or use %s again." ), is_subdomain_install() ? $blog->domain : $blog->domain . $blog->path ); ?></strong></label></p>
 		<?php submit_button( __( 'Delete My Site Permanently' ) ); ?>
 	</form>
-	<?php
+ 	<?php
 }
 echo '</div>';
 
 include( './admin-footer.php' );
-?>

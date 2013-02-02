@@ -10,11 +10,54 @@ if (!class_exists('CustomContactFormsExport')) {
 		var $last_export_content;
 		var $last_export_file;
 		var $exports_path;
+		var $csv_array;
 		var $option_name;
 		
 		function CustomContactFormsExport($option_name) {
 			$this->exports_path = CCF_BASE_PATH . 'export/';
 			$this->option_name = $option_name;
+		}
+		
+		function exportSavedFormSubmissionsToCSV($form_id = NULL) {
+			ccf_utils::load_module('export/custom-contact-forms-user-data.php');
+			$out = array();
+			$col_header = array(__('Form Submitted', 'custom-contact-forms'), __('Date', 'custom-contact-forms'),  __('Form Location', 'custom-contact-forms'), __('Form ID', 'custom-contact-forms'));
+			$extra_cols = array();
+			$out[] = $col_header;
+			$user_data_array = parent::selectAllUserData($form_id);
+			$i = 0;
+			foreach ($user_data_array as $data_object) {
+				$line = array();
+				$data = new CustomContactFormsUserData(array('form_id' => $data_object->data_formid, 'data_time' => $data_object->data_time, 'form_page' => $data_object->data_formpage, 'encoded_data' => $data_object->data_value));	
+				$data_form = parent::selectForm($data->getFormID());
+				$this_form = (!empty($data_form->form_slug)) ? $data_form->form_slug : '-';
+				$line[] = $this_form;
+				$line[] = date('F d, Y h:i:s A', $data->getDataTime());
+				$line[] = $data->getFormPage();
+				$line[] = $data->getFormID();
+				$data_array = $data->getDataArray();
+				ksort($data_array);
+				
+				if ($i == 0) {
+					foreach ($data_array as $item_key => $item_value)
+						$extra_cols[] = $item_key;
+				} foreach ($extra_cols as $k) {
+					$line[] = $data->parseUserData($data_array[$k], true);
+					unset($data_array[$k]);
+				} foreach ($data_array as $key => $value) {
+					$line[] = $data->parseUserData($value, true);
+				}
+				$out[] = $line;
+				$i++;
+			}
+			if ($form_id != NULL) {
+				sort($extra_cols);
+				foreach ($extra_cols as $c) {
+					$out[0][] = $c;
+				}
+			}
+			$this->csv_array = $out;
+			return $out;
 		}
 		
 		function exportAll($backup_options = true) {
@@ -47,6 +90,19 @@ if (!class_exists('CustomContactFormsExport')) {
 				$out .= $statement;
 			}
 			return $out;
+		}
+		
+		function exportCSVToFile() {
+			$export_file = "ccf-form-submission-export-" . strtolower(date('j-M-Y--h-i-s')) . '.csv';
+			if (($export_handle = @fopen($this->getExportsPath() . $export_file, 'w')) == false)
+				return false;
+				
+			foreach ($this->csv_array as $fields) {
+   				fputcsv($export_handle, $fields);
+			}
+			fclose($export_handle);
+			$this->last_export_file = $export_file;
+			return $export_file;
 		}
 		
 		function exportToFile($export_content = NULL) {

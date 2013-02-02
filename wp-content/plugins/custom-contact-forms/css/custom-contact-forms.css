@@ -3,7 +3,6 @@ form.customcontactform, form.customcontactform-sidebar {
 	margin:8px;
 	width:95%;
 	max-width:600px;
-	font-size:11px;
 	padding:4px;
 }
 form.customcontactform-sidebar { width:100%; }
@@ -22,32 +21,31 @@ form.customcontactform div, form.customcontactform-sidebar div {
 }
 form.customcontactform div div, form.customcontactform-sidebar div div { border-bottom:none; margin-bottom:0; padding:0; }
 form.customcontactform div input, form.customcontactform div select, form.customcontactform-sidebar div input, form.customcontactform-sidebar div select {
-	width:16em;
-	padding:2px;
+	width:17em;
+	padding:4px;
 	margin:0;
-	font-size:1.3em;
-	font-family:Verdana, Arial, Helvetica, sans-serif;
 	-moz-border-radius:4px;
 	-khtml-border-radius:4px;
 	-webkit-border-radius:4px;
 	border-radius:4px;
 }
-form.customcontactform div input[type=checkbox], form.customcontactform-sidebar div input[type=checkbox] { width:30px; margin:5px 6px 0 0; }
+form.customcontactform div input[type=checkbox], form.customcontactform-sidebar div input[type=checkbox] { width:30px; margin:0px 5px 0 0; }
 form.customcontactform div input[type=radio], form.customcontactform-sidebar div input[type=radio] { width:20px; margin:5px 6px 0 0; }
 form.customcontactform input, form.customcontactform-sidebar input { margin: 7px 0 0 0; }
 form.customcontactform div textarea, form.customcontactform-sidebar div textarea {
-	width:16em;
+	width:17em;
 	padding:4px;
 	margin:0;
-	font-size:1.3em;
-	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-family:inherit;
+	font-size:inherit;
 	-moz-border-radius:6px;
 	-khtml-border-radius:6px;
 	-webkit-border-radius:6px;
 	border-radius:6px;
 	height:5em;
 }
-form.customcontactform div select { font-size:1.3em; width:auto; margin-right:9px; }
+form.customcontactform .submit { padding:3px; }
+form.customcontactform div select { width:auto; margin-right:9px; min-width:17em; padding:2px; }
 form.customcontactform-sidebar div input[type=text], 
 form.customcontactform-sidebar div select, 
 form.customcontactform-sidebar div textarea { width:95%; max-width:16em; margin:2px 0 4px 0; }
@@ -103,7 +101,7 @@ form.customcontactform-sidebar div select { width:auto; }
 }
 #ccf-form-success div {
 	background-color:#efefef;
-	padding:9px 9px 9px 20px;
+	padding:4px 9px 9px 20px;
 	margin:0 0 15px 0px;
 	height:1.3em;
 }
@@ -112,14 +110,55 @@ form.customcontactform-sidebar div select { width:auto; }
 	float:left;
 	margin:0;
 	padding:0;
-	font-size:1.5em;
+	font-size:16px;
 	font-weight:bold;
 }
-#ccf-form-success p { padding:8px; margin:0; clear:both; font-size:1.1em; text-align:center; }
+#ccf-form-success p { padding:8px; margin:0; clear:both; font-size:14px; text-align:center; }
 #ccf-form-success div a.close {
 	float:right;
 	display:block;
 	font-size:12px;
 	margin:0;
 	padding:0;
+}
+
+/* reCaptcha */
+#recaptcha_widget {
+	width: 425px;
+	padding: 10px !important;
+	min-height: 100px;
+	height: auto;
+	border: 1px solid #ccc;
+}
+#recaptcha_image {
+	border: 1px solid #ccc;
+}
+#recaptcha_widget .left {
+	width: 295px;
+}
+#recaptcha_widget .right {
+	float: right;
+	width: 110px;
+}
+#recaptcha_widget input {
+	width: 294px !important;
+	margin-top: 6px !important;
+}
+#recaptcha_widget .logo {
+	width: 75px;
+	height: 80px;
+	float: right;
+}
+#recaptcha_widget .reload {
+	width:  25px;
+	height: 18px;
+}
+#recaptcha_widget .audio {
+	width:  25px;
+	height: 15px;
+	margin: -1px 0 2px 0;
+}
+#recaptcha_widget .help {
+	width:  25px;
+	height: 16px;
 }

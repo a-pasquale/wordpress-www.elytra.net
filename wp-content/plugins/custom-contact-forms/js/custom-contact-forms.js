@@ -1,4 +1,9 @@
 // Custom Contact Forms plugin javascript
+var RecaptchaOptions = {
+	theme : 'custom',
+    custom_theme_widget: 'recaptcha_widget'
+};
+
 $j = jQuery.noConflict();
 $j(document).ready(function(){
 	$j('<a></a>')
