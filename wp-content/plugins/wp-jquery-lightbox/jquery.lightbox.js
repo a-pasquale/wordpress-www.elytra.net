@@ -1,6 +1,6 @@
 /**
  * WP jQuery Lightbox
- * Version 1.3.4.2 - 2011-02-01
+ * Version 1.4 - 2013-02-02
  * @author Ulf Benjaminsson (http://www.ulfben.com)
  *
  * This is a modified version of Warren Krevenkis Lightbox-port (see notice below) for use in the WP jQuery Lightbox-
@@ -36,6 +36,9 @@
 (function($){
     $.fn.lightbox = function(options) {
         var opts = $.extend({}, $.fn.lightbox.defaults, options);
+		if($("#overlay").is(':visible')){//to resize the overlay whenever doLightbox is invoked
+			$(window).trigger('resize'); //we need this to deal with InfiniteScroll and similar.
+		}
 		function onClick() {
             initialize();
             start(this);
@@ -45,28 +48,22 @@
 			return $(this).on("click", onClick);
         }else{
 			return $(this).live("click", onClick); //deprecated since 1.7
-		}		
-		
+		}				
 		function initialize() {
             $(window).bind('orientationchange', resizeListener);
             $(window).bind('resize', resizeListener);
-            // if (opts.followScroll) { $(window).bind('scroll', orientListener); }
             $('#overlay').remove();
             $('#lightbox').remove();
             opts.isIE8 = isIE8(); // //http://www.grayston.net/2011/internet-explorer-v8-and-opacity-issues/
             opts.inprogress = false;
-            // if jsonData, build the imageArray from data provided in JSON format
-            if (opts.jsonData && opts.jsonData.length > 0) {
-                var parser = opts.jsonDataParser ? opts.jsonDataParser : $.fn.lightbox.parseJsonData;
-                opts.imageArray = [];
-                opts.imageArray = parser(opts.jsonData);
-            }
-            var outerImage = '<div id="outerImageContainer"><div id="imageContainer"><iframe id="lightboxIframe" /><img id="lightboxImage"><div id="hoverNav"><a href="javascript://" title="' + opts.strings.prevLinkTitle + '" id="prevLink"></a><a href="javascript://" id="nextLink" title="' + opts.strings.nextLinkTitle + '"></a></div><div id="loading"><a href="javascript://" id="loadingLink"><div id="jqlb_loading"></div></a></div></div></div>';
-            var imageData = '<div id="imageDataContainer" class="clearfix"><div id="imageData"><div id="imageDetails"><span id="caption"></span><span id="numberDisplay"></span></div><div id="bottomNav">';
+			opts.auto = -1;
+			var txt = opts.strings;
+            var outerImage = '<div id="outerImageContainer"><div id="imageContainer"><iframe id="lightboxIframe" /><img id="lightboxImage"><div id="hoverNav"><a href="javascript://" title="' + txt.prevLinkTitle + '" id="prevLink"></a><a href="javascript://" id="nextLink" title="' + txt.nextLinkTitle + '"></a></div><div id="jqlb_loading"><a href="javascript://" id="loadingLink"><div id="jqlb_spinner"></div></a></div></div></div>';
+            var imageData = '<div id="imageDataContainer" class="clearfix"><div id="imageData"><div id="imageDetails"><span id="caption"></span><p id="controls"><span id="numberDisplay"></span> <span id="downloadLink"><a href="" target="'+opts.linkTarget+'">' + txt.download + '</a></span></p></div><div id="bottomNav">';
             if (opts.displayHelp) {
-                imageData += '<span id="helpDisplay">' + opts.strings.help + '</span>';
+                imageData += '<span id="helpDisplay">' + txt.help + '</span>';
             }
-            imageData += '<a href="javascript://" id="bottomNavClose" title="' + opts.strings.closeTitle + '"><div id="jqlb_closelabel"></div></a></div></div></div>';
+            imageData += '<a href="javascript://" id="bottomNavClose" title="' + txt.closeTitle + '"><div id="jqlb_closelabel"></div></a></div></div></div>';
             var string;
             if (opts.navbarOnTop) {
                 string = '<div id="overlay"></div><div id="lightbox">' + imageData + outerImage + '</div>';
@@ -85,15 +82,15 @@
             if (!opts.imageClickClose) {
                 $("#lightboxImage").click(function () { return false; });
                 $("#hoverNav").click(function () { return false; });
-            }
-        };
+            }						
+        };	
         //allow image to reposition & scale if orientation change or resize occurs.
         function resizeListener(e) {
             if (opts.resizeTimeout) {
                 clearTimeout(opts.resizeTimeout);
                 opts.resizeTimeout = false;
             }
-            opts.resizeTimeout = setTimeout(function () { doScale(false); }, 50); //a delay to avoid duplicate event calls.		
+            opts.resizeTimeout = setTimeout(function () { doScale(); }, 50); //a delay to avoid duplicate event calls.		
         }
         function getPageSize(){           
             var pgDocHeight = $(document).height();
@@ -134,7 +131,6 @@
 			}	
             return new Array(xScroll, yScroll);
         };
-
 		function start(imageLink) {
             $("select, embed, object").hide();
             var arrayPageSize = getPageSize();
@@ -150,91 +146,80 @@
                     $("#overlay").css({ top: newTop + 'px' });
                 }
             }
-            imageNum = 0;
-            // if data is not provided by jsonData parameter
-            if (!opts.jsonData) {
-                opts.imageArray = [];
-                // if image is NOT part of a set..				
-                if (!imageLink.rel || (imageLink.rel == '')) {
-                    // add single image to Lightbox.imageArray
-                    var s = '';
-                    if (imageLink.title) {
-                        s = imageLink.title;
-                    } else if ($(this).children(':first-child').attr('title')) {
-                        s = $(this).children(':first-child').attr('title');
-                    }
-                    opts.imageArray.push(new Array(imageLink.href, opts.displayTitle ? s : ''));
-                } else {
-                    // if image is part of a set..
-                    $("a").each(function () {
-                        if (this.href && (this.rel == imageLink.rel)) {
-                            var title = '';
-                            var caption = '';
-                            var captionText = '';
-                            var jqThis = $(this);
-                            if (this.title) {
-                                title = this.title;
-                            } else if (jqThis.children('img:first-child').attr('title')) {
-                                title = jqThis.children('img:first-child').attr('title'); //grab the title from the image if the link lacks one
-                            }
-                            if (jqThis.parent().next('.gallery-caption').html()) {
-                                var jq = jqThis.parent().next('.gallery-caption');
-                                caption = jq.html();
-                                captionText = jq.text();
-                            } else if (jqThis.next('.wp-caption-text').html()) {
-                                caption = jqThis.next('.wp-caption-text').html();
-                                captionText = jqThis.next('.wp-caption-text').text();
-                            }
-                            title = $.trim(title);
-                            captionText = $.trim(captionText);
-                            if (title.toLowerCase() == captionText.toLowerCase()) {
-                                title = caption; //to keep linked captions
-                                caption = ''; //but not duplicate the text								
-                            }
-							var s = '';
-							if (title != '') {
-								s = '<span id="titleText">' + title + '</span>';
-							} 
-							if (caption != '') {
-								if (title != ''){
-									s += '<br />';
-								} 
-								s += '<span id="captionText">' + caption +'</span>';
-							}
-                            opts.imageArray.push(new Array(this.href, opts.displayTitle ? s : ''));
-                        }
-                    });
-                }
-            }
-            if (opts.imageArray.length > 1) {
-                for (i = 0; i < opts.imageArray.length; i++) {
-                    for (j = opts.imageArray.length - 1; j > i; j--) {
-                        if (opts.imageArray[i][0] == opts.imageArray[j][0]) {
-                            opts.imageArray.splice(j, 1);
+            var imageNum = 0;  			
+			var images = [];
+			opts.downloads = {}; //to keep track of any custom download links		
+			$("a").each(function(){
+				if(!this.href || (this.rel != imageLink.rel)) {
+					return;
+				}
+				var title = '';
+				var caption = '';
+				var captionText = '';
+				var jqThis = $(this);
+				var jqImg = jqThis.children('img:first-child');
+				if (this.title) { //title of link
+					title = this.title;
+				} else if (jqImg.attr('title')) {
+					title = jqImg.attr('title'); //grab the title from the image if the link lacks one
+				} else if(jqImg.attr('alt')){
+					title = jqImg.attr('alt'); //if neither link nor image have a title attribute
+				}
+				if (jqThis.parent().next('.gallery-caption').html()) {
+					var jq = jqThis.parent().next('.gallery-caption');
+					caption = jq.html();
+					captionText = jq.text();
+				} else if (jqThis.next('.wp-caption-text').html()) {
+					caption = jqThis.next('.wp-caption-text').html();
+					captionText = jqThis.next('.wp-caption-text').text();
+				}
+				title = $.trim(title);
+				captionText = $.trim(captionText);
+				if (title.toLowerCase() == captionText.toLowerCase()) {
+					title = caption; //to keep linked captions
+					caption = ''; //but not duplicate the text								
+				}
+				var s = '';
+				if (title != '') {
+					s = '<span id="titleText">' + title + '</span>';
+				} 
+				if (caption != '') {
+					if (title != ''){
+						s += '<br />';
+					} 
+					s += '<span id="captionText">' + caption +'</span>';
+				}						
+				if(opts.displayDownloadLink || jqThis.attr("data-download")){							
+					opts.downloads[images.length] = jqThis.attr("data-download"); //use length as an index. convenient since it will always be unique							
+				}						
+				images.push(new Array(this.href, opts.displayTitle ? s : '', images.length));
+			});			            
+            if (images.length > 1) {
+                for (i = 0; i < images.length; i++) {
+                    for (j = images.length - 1; j > i; j--) {
+                        if (images[i][0] == images[j][0]) {
+                            images.splice(j, 1);
                         }
                     }
                 }
-                while (opts.imageArray[imageNum][0] != imageLink.href) { imageNum++; }
+                while (images[imageNum][0] != imageLink.href) { imageNum++; }
             }
-            // calculate top and left offset for the lightbox
-            setLightBoxPos(arrayPagePos[1], arrayPagePos[0]).show();
+            opts.imageArray = images;			
+            setLightBoxPos(arrayPagePos[1], arrayPagePos[0]).show();// calculate top and left offset for the lightbox
             changeImage(imageNum);
         };
-		
 		function setLightBoxPos(newTop, newLeft) {        
             if (opts.resizeSpeed > 0) {
-                $('#lightbox').animate({ top: newTop }, 250, 'linear');
-                return $('#lightbox').animate({ left: newLeft }, 250, 'linear');
+                return $('#lightbox').animate({ top: newTop+ 'px', left: newLeft+ 'px' }, 250, 'linear');                
             }
             return $('#lightbox').css({ top: newTop + 'px', left: newLeft + 'px' });
         }
-		
         function changeImage(imageNum) {
             if (opts.inprogress == false) {
                 opts.inprogress = true;
                 opts.activeImage = imageNum;
                 // hide elements during transition
-                $('#loading').show();
+                $('#jqlb_loading').show();
                 $('#lightboxImage').hide();
                 $('#hoverNav').hide();
                 $('#prevLink').hide();
@@ -242,7 +227,6 @@
                 doChangeImage();
             }
         };
-
         function doChangeImage() {
             opts.imgPreloader = new Image();
             opts.imgPreloader.onload = function () {
@@ -252,7 +236,6 @@
             };
             opts.imgPreloader.src = opts.imageArray[opts.activeImage][0];
         };
-
         function doScale() {
             if (!opts.imgPreloader) {
                 return;
@@ -298,24 +281,18 @@
             opts.yScale = (heightNew / opts.heightCurrent) * 100;           
             setLightBoxPos(lightboxTop, lightboxLeft);                   
             updateDetails(); //toyNN: moved updateDetails() here, seems to work fine.    
-			$('#imageDataContainer').animate({ width: widthNew }, opts.resizeSpeed, 'linear');
-			$('#outerImageContainer').animate({ width: widthNew }, opts.resizeSpeed, 'linear', function () {
-				$('#outerImageContainer').animate({ height: heightNew }, opts.resizeSpeed, 'linear', function () {
-					showImage();
-				});
+			$('#imageDataContainer').animate({width:widthNew}, opts.resizeSpeed, 'linear');
+			$('#outerImageContainer').animate({width:widthNew,height:heightNew}, opts.resizeSpeed, 'linear', function () {				
+					showImage();				
 			});
 			updateNav();
-            $('#prevLink').height(imgHeight);
-            $('#nextLink').height(imgHeight);
+            $('#prevLink,#nextLink').height(imgHeight);            
         };
-
         function showImage() {
             //assumes updateDetails have been called earlier!
             $("#imageData").show();
-            $('#caption').show();
-            //$('#imageDataContainer').slideDown(400);
-            //$("#imageDetails").hide().fadeIn(400);		
-            $('#loading').hide();
+            $('#caption').show();      	
+            $('#jqlb_loading').hide();
             if (opts.resizeSpeed > 0) {
                 $('#lightboxImage').fadeIn("fast");
             } else {
@@ -325,7 +302,7 @@
         };
 		
 		function preloadNeighborImages() {
-            if (opts.loopImages && opts.imageArray.length > 1) {
+            if (opts.imageArray.length > 1) {
                 preloadNextImage = new Image();
                 preloadNextImage.src = opts.imageArray[(opts.activeImage == (opts.imageArray.length - 1)) ? 0 : opts.activeImage + 1][0]
                 preloadPrevImage = new Image();
@@ -342,68 +319,72 @@
             }
         };
 
-
         function updateDetails() {
             $('#numberDisplay').html('');
             $('#caption').html('').hide();
-            if (opts.imageArray[opts.activeImage][1]) {
-                $('#caption').html(opts.imageArray[opts.activeImage][1]).show();
+			var images = opts.imageArray;
+			var txt = opts.strings;
+			var i = opts.activeImage;
+			var downloadIndex = images[i][2];
+            if (images[i][1]) {
+                $('#caption').html(images[i][1]).show();
+            }        
+            var pos = (images.length > 1) ? txt.image + (i + 1) + txt.of + images.length : '';            
+			if(opts.slidehowSpeed && images.length > 1){	
+				var pp = (opts.auto === -1) ? txt.play : txt.pause;
+				pos += ' <a id="playpause" href="#">' + pp + '</a>';				
+			}			
+			if(opts.displayDownloadLink || opts.downloads[downloadIndex]){
+				var url = opts.downloads[downloadIndex] ? opts.downloads[downloadIndex] : images[i][0]; 				
+				$('#downloadLink').show().children().attr("href", url);
+			}else{
+				$('#downloadLink').hide();
+			}			
+            if(pos != ''){
+                $('#numberDisplay').html(pos).show();
             }
-            var nav_html = '';
-            var prev = '';
-            var pos = (opts.imageArray.length > 1) ? opts.strings.image + (opts.activeImage + 1) + opts.strings.of + opts.imageArray.length : '';
-            var link = (opts.displayDownloadLink) ? '<a href="' + opts.imageArray[opts.activeImage][0] + '" id="downloadLink" target="'+opts.linkTarget+'">' + opts.strings.download + '</a>' : '';
-            var next = '';
-            if (opts.imageArray.length > 1 && !opts.disableNavbarLinks) {	 // display previous / next text links   			           
-                if ((opts.activeImage) > 0 || opts.loopImages) {
-                    prev = '<a title="' + opts.strings.prevLinkTitle + '" href="#" id="prevLinkText">' + opts.strings.prevLinkText + "</a>";
-                }
-                if (((opts.activeImage + 1) < opts.imageArray.length) || opts.loopImages) {
-                    next += '<a title="' + opts.strings.nextLinkTitle + '" href="#" id="nextLinkText">' + opts.strings.nextLinkText + "</a>";
-                }
-            }
-            nav_html = prev + nav_html + pos + link + next;
-            if (nav_html != '') {
-                $('#numberDisplay').html(nav_html).show();
-            }
+			if(opts.slidehowSpeed){				
+				$("#numberDisplay").off('click').click(function() {										
+					if(opts.auto != -1){
+						$(this).children("a").text(txt.play);
+						clearInterval(opts.auto);
+						opts.auto = -1;
+					}else{					
+						$(this).children("a").text(txt.pause);						
+						opts.auto = setInterval(function(){changeImage((opts.activeImage == (opts.imageArray.length - 1)) ? 0 : opts.activeImage + 1);}, opts.slidehowSpeed);
+					}
+					return false;
+				});							
+			}
         };
-
         function updateNav() {
             if (opts.imageArray.length > 1) {
-                $('#hoverNav').show();
-                // if loopImages is true, always show next and prev image buttons 
-                if (opts.loopImages) {
-                    $('#prevLink,#prevLinkText').show().click(function () {
-                        changeImage((opts.activeImage == 0) ? (opts.imageArray.length - 1) : opts.activeImage - 1); return false;
-                    });
-                    $('#nextLink,#nextLinkText').show().click(function () {
-                        changeImage((opts.activeImage == (opts.imageArray.length - 1)) ? 0 : opts.activeImage + 1); return false;
-                    });
-                } else {
-                    // if not first image in set, display prev image button
-                    if (opts.activeImage != 0) {
-                        $('#prevLink,#prevLinkText').show().click(function () {
-                            changeImage(opts.activeImage - 1); return false;
-                        });
-                    }
-                    // if not last image in set, display next image button
-                    if (opts.activeImage != (opts.imageArray.length - 1)) {
-                        $('#nextLink,#nextLinkText').show().click(function () {
-                            changeImage(opts.activeImage + 1); return false;
-                        });
-                    }
-                }
+                $('#hoverNav').show();      
+				$('#prevLink').show().click(function () {
+					changeImage((opts.activeImage == 0) ? (opts.imageArray.length - 1) : opts.activeImage - 1); return false;
+				});
+				$('#nextLink').show().click(function () {
+					changeImage((opts.activeImage == (opts.imageArray.length - 1)) ? 0 : opts.activeImage + 1); return false;
+				});
+				if($.fn.touchwipe){
+					$('#imageContainer').touchwipe({
+						 wipeLeft: function() { changeImage((opts.activeImage == 0) ? (opts.imageArray.length - 1) : opts.activeImage - 1); },
+						 wipeRight: function() { changeImage((opts.activeImage == (opts.imageArray.length - 1)) ? 0 : opts.activeImage + 1); },					
+						 min_move_x: 20,				
+						 preventDefaultEvents: true
+					});
+				}
                 enableKeyboardNav();
             }
         };
-
         function end() {
             disableKeyboardNav();
+			clearInterval(opts.auto);
+			opts.auto = -1;
             $('#lightbox').hide();
             $('#overlay').fadeOut();
             $('select, object, embed').show();
         };
-
         function keyboardAction(e) {
             var o = e.data.opts;
             var keycode = e.keyCode;
@@ -412,23 +393,11 @@
             if ((key == 'x') || (key == 'o') || (key == 'c') || (keycode == escapeKey)) { // close lightbox
                 end();
             } else if ((key == 'p') || (keycode == 37)) { // display previous image
-                if (o.loopImages) {
-                    disableKeyboardNav();
-                    changeImage((o.activeImage == 0) ? (o.imageArray.length - 1) : o.activeImage - 1);
-                }
-                else if (o.activeImage != 0) {
-                    disableKeyboardNav();
-                    changeImage(o.activeImage - 1);
-                }
+				disableKeyboardNav();
+                changeImage((o.activeImage == 0) ? (o.imageArray.length - 1) : o.activeImage - 1);
             } else if ((key == 'n') || (keycode == 39)) { // display next image
-                if (opts.loopImages) {
-                    disableKeyboardNav();
-                    changeImage((o.activeImage == (o.imageArray.length - 1)) ? 0 : o.activeImage + 1);
-                }
-                else if (o.activeImage != (o.imageArray.length - 1)) {
-                    disableKeyboardNav();
-                    changeImage(o.activeImage + 1);
-                }
+                disableKeyboardNav();
+                changeImage((o.activeImage == (o.imageArray.length - 1)) ? 0 : o.activeImage + 1);
             }          
             return false;
         };
@@ -438,14 +407,7 @@
         function disableKeyboardNav() {
             $(document).unbind('keydown');
         };
-    };
-    $.fn.lightbox.parseJsonData = function(data) {
-        var imageArray = [];
-        $.each(data, function () {
-            imageArray.push(new Array(this.url, this.title));
-        });
-        return imageArray;
-    };
+    };    
     $.fn.lightbox.defaults = {
 		adminBarHeight:28,
         overlayOpacity: 0.8,
@@ -457,45 +419,47 @@
         heightCurrent: 250,
         xScale: 1,
         yScale: 1,
-        displayTitle: true,
-        disableNavbarLinks: true,
-        loopImages: true,
+        displayTitle: true,       
         imageClickClose: true,
-        jsonData: null,
-        jsonDataParser: null,
         followScroll: false,
         isIE8: false  //toyNN:internal value only
-    };
-	$(document).ready(function($){
-		var haveConf = (typeof JQLBSettings == 'object');
-		if(haveConf && JQLBSettings.resizeSpeed) {
-			JQLBSettings.resizeSpeed = parseInt(JQLBSettings.resizeSpeed);
-		}
-		if(haveConf && JQLBSettings.marginSize){
-			JQLBSettings.marginSize = parseInt(JQLBSettings.marginSize);
-		}
-		var default_strings = {
-			help: ' Browse images with your keyboard: Arrows or P(revious)/N(ext) and X/C/ESC for close.',
-			prevLinkTitle: 'previous image',
-			nextLinkTitle: 'next image',
-			prevLinkText:  '&laquo; Previous',
-			nextLinkText:  'Next &raquo;',
-			closeTitle: 'close image gallery',
-			image: 'Image ',
-			of: ' of ',
-			download: 'Download'
-		};
-		$('a[rel^="lightbox"]').lightbox({
-			adminBarHeight: $('#wpadminbar').height() || 0,
-			linkTarget: (haveConf && JQLBSettings.linkTarget.length) ? JQLBSettings.linkTarget : '_self',
-			displayHelp: (haveConf && JQLBSettings.help.length) ? true : false,
-			marginSize: (haveConf && JQLBSettings.marginSize) ? JQLBSettings.marginSize : 0,
-			fitToScreen: (haveConf && JQLBSettings.fitToScreen == '1') ? true : false,
-			resizeSpeed: (haveConf && JQLBSettings.resizeSpeed >= 0) ? JQLBSettings.resizeSpeed : 400,
-			displayDownloadLink: (haveConf && JQLBSettings.displayDownloadLink == '0') ? false : true,
-			navbarOnTop: (haveConf && JQLBSettings.navbarOnTop == '0') ? false : true,
-			//followScroll: (haveConf && JQLBSettings.followScroll == '0') ? false : true,
-			strings: (haveConf && typeof JQLBSettings.help == 'string') ? JQLBSettings : default_strings
-		});	
-	});	
+    };	
+	$(document).ready(doLightBox);	
 })(jQuery);
+//you can call this manually at any time to activate the lightboxing. (useful for ajax-loaded content)
+function doLightBox(){
+	var haveConf = (typeof JQLBSettings == 'object');	
+	var ss, rs, ms = 0;
+	if(haveConf && JQLBSettings.slideshowSpeed) {
+		 ss = parseInt(JQLBSettings.slideshowSpeed);
+	}
+	if(haveConf && JQLBSettings.resizeSpeed) {
+		rs = parseInt(JQLBSettings.resizeSpeed);
+	}
+	if(haveConf && JQLBSettings.marginSize){
+		ms = parseInt(JQLBSettings.marginSize);
+	}
+	var default_strings = {
+		help: ' Browse images with your keyboard: Arrows or P(revious)/N(ext) and X/C/ESC for close.',
+		prevLinkTitle: 'previous image',
+		nextLinkTitle: 'next image',		
+		closeTitle: 'close image gallery',
+		image: 'Image ',
+		of: ' of ',
+		download: 'Download',
+		pause: '(pause slideshow)',
+		play: '(play slideshow)'
+	};
+	jQuery('a[rel^="lightbox"]').lightbox({
+		adminBarHeight: jQuery('#wpadminbar').height() || 0,
+		linkTarget: (haveConf && JQLBSettings.linkTarget.length) ? JQLBSettings.linkTarget : '_self',
+		displayHelp: (haveConf && JQLBSettings.help.length) ? true : false,
+		marginSize: (haveConf && ms) ? ms : 0,
+		fitToScreen: (haveConf && JQLBSettings.fitToScreen == '1') ? true : false,
+		resizeSpeed: (haveConf && rs >= 0) ? rs : 400,
+		slidehowSpeed: (haveConf && ss >= 0) ? ss : 4000,
+		displayDownloadLink: (haveConf && JQLBSettings.displayDownloadLink == '0') ? false : true,
+		navbarOnTop: (haveConf && JQLBSettings.navbarOnTop == '0') ? false : true,		
+		strings: (haveConf && typeof JQLBSettings.help == 'string') ? JQLBSettings : default_strings
+	});	
+}
