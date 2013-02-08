@@ -186,6 +186,10 @@ Still have problems? Post a link and describe what issue you're having, and tell
 * Use WordPress bundled jQuery instead of forcing the Google CDN
 * Fixed the settings link on the Plugins page
 
+= 1.2.2 (2011-04-14) =
+* Use WordPress bundled jQuery instead of forcing the Google CDN
+* Fixed the settings link on the Plugins page
+
 = 1.2.1 (2010-10-24) =
 * [Use only caption if title is identical](http://wordpress.org/support/topic/plugin-wp-jquery-lightbox-title-captions-bug-found-solved-and-fix-proposed?replies=8#post-1748874)
 * Removed a forgotten debug call
@@ -227,6 +231,9 @@ Added missing files from previous release... Also: mobile support, larger displa
 
 = 1.3 =
 Enables larger viewing area, improved mobile experience and translations.
+
+= 1.2.2 =
+Use WordPress bundled jQuery instead of forcing the Google CDN
 
 = 1.2.2 =
 Use WordPress bundled jQuery instead of forcing the Google CDN

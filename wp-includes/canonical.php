@@ -164,7 +164,7 @@ function redirect_canonical( $requested_url = null, $do_redirect = true ) {
 				$term_count += count( $tax_query['terms'] );
 
 			$obj = $wp_query->get_queried_object();
-			if ( $term_count <= 1 && !empty($obj->term_id) && ( $tax_url = get_term_link((int)$obj->term_id, $obj->taxonomy) ) && !is_wp_error($tax_url) ) {
+			if ( $term_count <= 1 && !empty($obj->term_id) && ( $tax_url = get_term_link((int)$obj->term_id, $obj->taxonomy) ) && !is_wp_error($tax_url) && !empty($redirect['query']) ) {
 				if ( !empty($redirect['query']) ) {
 					// Strip taxonomy query vars off the url.
 					$qv_remove = array( 'term', 'taxonomy');
