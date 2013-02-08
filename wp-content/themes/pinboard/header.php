@@ -4,7 +4,6 @@
 <meta charset="<?php bloginfo('charset'); ?>" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title><?php wp_title(); ?></title>
-<link rel="profile" href="http://gmpg.org/xfn/11" />
 <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
 <?php wp_head(); ?>
 </head>
@@ -12,6 +11,7 @@
 <body <?php body_class() ?>>
 	<div id="wrapper">
 		<header id="header">
+<img id="ladybug" src="http://elytra.net/wordpress/wp-content/themes/sight/images/ladybug.png"></img>
 			<<?php pinboard_title_tag( 'site' ); ?> id="site-title">
 				<?php if ( ( '' != get_header_image() ) &&  ( false != get_header_image() ) ) : ?>
 					<a href="<?php echo home_url( '/' ); ?>" rel="home">

@@ -18,6 +18,7 @@ Any modifications made to this file will be lost if you update the theme.
 Instead, go to Appearance > Theme Options > Layout and enter your custom CSS there or create a child theme.
 Any style attributes declared there will override the ones in this file and will not be lost during theme update.
 */
+@import url(http://fonts.googleapis.com/css?family=Droid+Sans:regular,bold|Droid+Serif:regular,italic,bold,bolditalic&subset=latin);
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -98,7 +99,7 @@ table {
 body {
 	background:#ccc;
 	color:#333;
-	font-family:"Open Sans", sans-serif;
+	font-family:"Droid Sans", "Open Sans", sans-serif;
 	font-size:13px;
 	line-height:1.62em;
 }
@@ -603,7 +604,7 @@ audio {
 	max-width:1140px;
 	margin:0 auto;
 	box-shadow:0 0 18px rgba(0, 0, 0, .4);
-	background:#f8f8f8;
+	background:#fdf6e3;
 	overflow:hidden;
 }
 
@@ -613,17 +614,21 @@ audio {
 	max-width:760px;
 }
 
-#header {
-	border-top:#111 3px solid;
+#ladybug {
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100px;
+
 }
 
 #site-title a,
 #site-description {
+	font-family:"Droid Sans", "Open Sans", sans-serif;
 	color:#333;
 }
 
-#site-title,
-#site-description {
+#site-title {
 	margin:0;
 	font-weight:300;
 	float:left;
@@ -642,13 +647,13 @@ audio {
 }
 
 #site-description {
-	margin-left:20px;
+    position:absolute;
+    top: 120px;
+    right: 3.75%;
 	font-size:12px;
 	font-weight:normal;
-    padding-top:8px;
-    margin-bottom:-8px;
-}
 
+}
 #sidebar-header {
 	float:right;
 	width:728px;
@@ -686,7 +691,7 @@ audio {
 	height: 16px;
 	padding:8px 16px;
 	margin-right:0;
-	background:#dedede url(images/search.png) right center no-repeat;
+	background:#eee8d5 url(images/search.png) right center no-repeat;
 	background:rgba(0, 0, 0, .1) url(images/search.png) right center no-repeat;
 	border:none;
 	border-radius:24px;
@@ -702,9 +707,9 @@ audio {
 	transition: width .25s ease, margin .25s ease;
 }
 
-#header input#s:focus {
+#header input#s:focus, #header input#s:hover {
 	width:180px;
-	background:#ececec url(images/search.png) right center no-repeat;
+	background:#eee8d5 url(images/search.png) right center no-repeat;
 	box-shadow:inset 1px 1px 5px 1px rgba(0, 0, 0, .1);
 	color:#333;
 	text-indent: 0;
@@ -809,9 +814,8 @@ a.social-media-icon:hover {
 }
 
 #access {
-	padding:0 20px;
-	background:#221E1D;
-    opacity:0.75;
+	padding:0;
+	background:#073642;
 	box-shadow:0 0 7px rgba(0, 0, 0, .1);
 }
 
@@ -850,7 +854,7 @@ a.social-media-icon:hover {
 #access a:hover,
 #access li.current_page_item > a,
 #access li.current-menu-item > a {
-	background:#555;
+	background:#b58900;
 	color:#fff;
 	text-decoration:none;
 }
@@ -863,7 +867,11 @@ a.social-media-icon:hover {
 	line-height:1.62em;
 	text-transform:none;
 }
-
+#access a:hover span,
+#access li.current_page_item > a span, 
+#access li.current-menu-item > a span {
+    color: #073642;
+}
 .drop-down-toggle {
 	display:none;
 	position:absolute;
@@ -1082,7 +1090,7 @@ a.social-media-icon:hover {
 	box-shadow:none;
 	background:none;
 	border:none;
-	color:#fff;
+	color:#CCC;
 	text-align:right;
 }
 
@@ -1091,7 +1099,6 @@ a.social-media-icon:hover {
 	position:relative;
 	top:0;
 	left:0;
-	width:100%;
 }
 
 #slider .entry-attachment {
@@ -1149,7 +1156,8 @@ a.social-media-icon:hover {
 #sidebar-wide,
 #sidebar-footer-wide {
 	padding:20px 3.1%;
-	background:#eee;
+	background:#073642;
+    opacity:0.85;
 	border-bottom:#e0e0e0 1px solid;
 	font-weight:300;
 }
@@ -1175,7 +1183,8 @@ a.social-media-icon:hover {
 
 .category-description {
 	margin-top: 4px;
-	color: #999;
+	color: #eee8d5;
+    font-size: 16px;
 }
 
 .category-description p {
@@ -1186,11 +1195,11 @@ a.social-media-icon:hover {
 #sidebar-wide .widget-title,
 #sidebar-footer-wide .widget-title {
 	margin:0;
-	font-family:"Open Sans", sans-serif;
-	font-size:32px;
-	font-style:italic;
+	font-family:Oswald, "Open Sans", sans-serif;
+	font-size:48px;
 	font-weight:300;
 	letter-spacing:normal;
+    color: #b58900;
 }
 
 #sidebar-wide .widget,
@@ -1324,7 +1333,7 @@ a.social-media-icon:hover {
 
 .wp-post-image {
 	display:block;
-	width:100%;
+	/*width:100%;*/
 }
 
 .page-template-template-full-width-php .hentry.onecol .wp-post-image,
@@ -1954,8 +1963,7 @@ a.button:hover {
 
 .social-bookmarks {
 	margin-bottom:20px;
-	font-size:12px;
-	font-weight:600;
+	font-size:14px;
 }
 
 .social-bookmarks p {
@@ -2267,7 +2275,7 @@ a.ajax-load:hover {
 }
 
 #sidebar {
-	color:#ccc;
+	color:#586e75;
 }
 
 #sidebar-left .widget,
@@ -2343,6 +2351,7 @@ a.ajax-load:hover {
 
 .widget-area a {
 	color:#7597B9;
+    color: #657b83;
 }
 .widget-area a:hover {
 	color:#d54e21;
@@ -2444,8 +2453,7 @@ a.ajax-load:hover {
 #copyright {
 	clear:both;				
 	padding:1.4% 3.2%;
-	background:#221e1d;
-    opacity:0.75;
+	background:#073642;
 	border-top:#333 1px solid;
 	color:#CCC;
 	font-weight:300;
@@ -2749,8 +2757,8 @@ a.ajax-load:hover {
 	#access .nav-show,
 	#access a.nav-show:hover {
 		position: absolute;
-		top: 93px;
-		right: 14%;
+		top: 148px;
+		right: 20px;
 		display:block;
 		width: 40px;
 		height: 32px !important;
@@ -2784,7 +2792,7 @@ a.ajax-load:hover {
 	}
 	
 	#access:target .menu {
-		padding-top: 134px;
+		padding-top: 182px;
 	}
 	
 	#access li ul {
@@ -2876,12 +2884,11 @@ a.ajax-load:hover {
 		display:block;
 		width:168px;
 		margin-left:12px;
-		background:#ececec url(images/search.png) right center no-repeat;
+		background:#eee8d5 url(images/search.png) right center no-repeat;
 		box-shadow:inset 1px 1px 5px 1px rgba(0, 0, 0, .1);
 		text-indent: 0;
 	}
 	#header input#s:focus {
-		width: 246px;
 		margin: 0;
 	}
 	
@@ -2892,7 +2899,8 @@ a.ajax-load:hover {
 	}
 	
 	#slider {
-		border-bottom: 50px solid #fff;
+		border-bottom: 50px solid #fdf6e3;
+        height: 525px;
 	}
 	
 	.flex-control-nav {

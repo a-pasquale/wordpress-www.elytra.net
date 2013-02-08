@@ -754,11 +754,15 @@ function pinboard_call_scripts() { ?>
 			$('#slider').flexslider({
 				selector: '.slides > li',
 				video: true,
+                controlNav: false,
 				prevText: '&larr;',
 				nextText: '&rarr;',
 				pausePlay: true,
 				pauseText: '||',
 				playText: '>',
+				start: function() {
+					$('#slider .entry-title').fadeIn();
+				},
 				before: function() {
 					$('#slider .entry-title').hide();
 				},
@@ -1276,7 +1280,7 @@ function pinboard_current_location() {
 		} else
 			$archive = ''; ?>
 		<hgroup id="current-location">
-			<h6 class="prefix-text"><?php _e( 'Currently browsing', 'pinboard' ); ?> <?php echo $archive; ?></h6>
+            <h6 class="prefix-text"><?php _e( 'Currently browsing', 'pinboard' ); ?> <?php echo $archive; ?></h6>
 			<<?php pinboard_title_tag( 'location' ); ?> class="page-title">
 				<?php if( isset( $pinboard_page_template ) ) {
 					echo the_title();
