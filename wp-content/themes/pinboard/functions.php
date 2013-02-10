@@ -843,6 +843,7 @@ function pinboard_call_scripts() { ?>
 						$(".entry-attachment, .entry-content").fitVids({ customSelector: "iframe, object, embed"});
 						<?php if( pinboard_get_option( 'lightbox' ) ) : ?>
 							$('.entry-content a[href$=".jpg"],.entry-content a[href$=".jpeg"],.entry-content a[href$=".png"],.entry-content a[href$=".gif"],a.colorbox').colorbox();
+                            console.log("test");
 						<?php endif; ?>
 					});
 				<?php endif; ?>
@@ -860,7 +861,7 @@ function pinboard_call_scripts() { ?>
 	});
 	jQuery(window).load(function() {
 		<?php if( pinboard_get_option( 'lightbox' ) ) : ?>
-			jQuery('.entry-content a[href$=".jpg"],.entry-content a[href$=".jpeg"],.entry-content a[href$=".png"],.entry-content a[href$=".gif"],a.colorbox').colorbox();
+			jQuery('.entry-content a[href$=".jpg"],.entry-content a[href$=".jpeg"],.entry-content a[href$=".png"],.entry-content a[href$=".gif"],a.colorbox').colorbox({scalePhotos:true, maxWidth:"95%", maxHeight:"95%"});
 		<?php endif; ?>
 	});
 /* ]]> */
